@@ -1,0 +1,9 @@
+{% load crispy_forms_tags %}
+<div class="container mt-4">
+  <h2>Registrar Cabaña</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Guardar</button>
+  </form>
+</div>

@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pagina principal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espindola Cabanas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <style>
+        /* Paleta de colores - Tonalidades de Verde */
+        :root {
+            --verde-fondo: #e8f5e9;       /* Verde muy claro para el fondo */
+            --verde-oscuro: #1b5e20;      /* Verde bosque para header y footer */
+            --verde-medio: #2e7d32;       /* Verde medio para bordes o textos destacados */
+            --verde-boton: #4caf50;       /* Verde brillante para botones */
+            --verde-boton-hover: #388e3c; /* Verde al pasar el mouse por el boton */
+        }
+
+        body {
+            background-color: var(--verde-fondo);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Utilidades Clientelizadas */
+        .bg-verde-oscuro {
+            background-color: var(--verde-oscuro);
+        }
+
+        .text-verde-medio {
+            color: var(--verde-medio);
+        }
+
+        .btn-verde {
+            background-color: var(--verde-boton);
+            color: white;
+            font-weight: bold;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-verde:hover {
+            background-color: var(--verde-boton-hover);
+            color: white;
+        }
+
+        .tarjeta-formulario {
+            border-top: 5px solid var(--verde-medio);
+            border-radius: 10px;
+        }
+
+        /* Efecto en las imagenes de la galeria */
+        .galeria-img {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            object-fit: cover;
+            height: 250px;
+            width: 100%;
+        }
+
+        .galeria-img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(27, 94, 32, 0.2) !important;
+        }
+
+        .galeria-fotos {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1rem;
+        }
+
+        .foto-principal {
+            height: 520px;
+        }
+
+        .foto-secundaria {
+            height: 252px;
+        }
+
+        .foto-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .foto-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 45%, rgba(0, 0, 0, 0.45));
+            pointer-events: none;
+        }
+
+        .foto-texto {
+            position: absolute;
+            left: 1rem;
+            bottom: 1rem;
+            z-index: 1;
+            color: white;
+            font-weight: 700;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+        }
+
+        .chat-widget {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            z-index: 20;
+            width: min(360px, calc(100vw - 36px));
+        }
+
+        .chat-panel {
+            display: none;
+            overflow: hidden;
+            margin-bottom: 10px;
+            border-radius: 10px;
+        }
+
+        .chat-panel.open {
+            display: block;
+        }
+
+        .chat-messages {
+            height: 240px;
+            overflow: auto;
+            background: #f8faf9;
+        }
+
+        .chat-message {
+            max-width: 88%;
+            margin-bottom: 10px;
+            padding: 9px 10px;
+            border-radius: 8px;
+            font-size: .94rem;
+            white-space: pre-line;
+        }
+
+        .chat-bot {
+            background: #e7f1ed;
+        }
+
+        .chat-user {
+            background: var(--verde-medio);
+            color: white;
+            margin-left: auto;
+        }
+
+        .ubicacion-card {
+            background: white;
+            border-left: 5px solid var(--verde-medio);
+            border-radius: 10px;
+        }
+
+        .chatbot-iframe {
+            background: white;
+            border-left: 5px solid var(--verde-medio);
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .chatbot-iframe iframe {
+            border: 0;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        .galeria-secundaria {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding-left: 14px;
+                padding-right: 14px;
+            }
+
+            .display-4 {
+                font-size: 1.9rem;
+            }
+
+            .lead {
+                font-size: 1rem;
+            }
+
+            .galeria-fotos {
+                grid-template-columns: 1fr;
+            }
+
+            .galeria-secundaria {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .foto-principal,
+            .foto-secundaria {
+                height: 260px;
+            }
+
+            .chatbot-iframe iframe {
+                height: 340px;
+            }
+
+            .chat-widget {
+                right: 10px;
+                left: 10px;
+                width: auto;
+                bottom: 10px;
+            }
+
+            .card-footer {
+                flex-direction: column;
+            }
+
+            .card-footer .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="galeria-fotos mb-5">
+        <div class="foto-card shadow-sm">
+            <img src="images/icono.png.jpg" alt="Cabanas Espindola" class="galeria-img foto-principal">
+            <span class="foto-texto">Cabanas rodeadas de naturaleza</span>
+        </div>
+
+
+    <header class="bg-verde-oscuro text-white text-center py-5 shadow">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Espindola Cabanas</h1>
+            <p class="lead mb-0">Tu refugio de paz y naturaleza en Mina Clavero, Cordoba</p>
+        </div>
+    </header>
+
+    <main class="container flex-grow-1 my-5">
+
+        <section class="galeria-fotos mb-5">
+            <div class="foto-card shadow-sm">
+                <img src="images/imagen_principal.jpeg" alt="Vista principal de las cabanas" class="galeria-img foto-principal">
+                <span class="foto-texto">Cabanas rodeadas de naturaleza</span>
+            </div>
+
+            <div class="d-grid gap-3">
+                <div class="foto-card shadow-sm">
+                    <img src="images/picina.jpg" alt="Piscina del complejo" class="galeria-img foto-secundaria">
+                    <span class="foto-texto">Piscina y descanso</span>
+                </div>
+
+                <div class="foto-card shadow-sm">
+                    <img src="images/dormitorio.jpg" alt="Interior de una Cabaña" class="galeria-img foto-secundaria">
+                    <span class="foto-texto">Espacios comodos</span>
+                </div>
+            </div>
+        </section>
+        
+                <div class="foto-card shadow-sm">
+                    <img src="images/balcon.jpg" alt="Balcon de una Cabaña" class="galeria-img foto-secundaria">
+                    <span class="foto-texto">Balcon con vista</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="row justify-content-center mb-5" id="ubicacion">
+            <div class="col-lg-10">
+                <div class="ubicacion-card shadow-sm p-4">
+                    <h2 class="h4 text-verde-medio fw-bold mb-2">Ubicacion</h2>
+                    <p class="mb-3">Nos encontramos en Mina Clavero, Cordoba. Abri la ubicacion en Google Maps para ver como llegar.</p>
+                    <p class="fw-semibold mb-3">WhatsApp: 3544562397</p>
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="https://maps.app.goo.gl/6R7NcDZgAeQNPnuG6" class="btn btn-verde px-4" target="_blank" rel="noopener noreferrer">Ver ubicacion en Google Maps</a>
+                        <a href="https://wa.me/5493544562397" class="btn btn-outline-success px-4" target="_blank" rel="noopener noreferrer">Enviar WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <!-- Barra de Navegación común -->
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow mb-4">
+                <div class="container">
+                    <a class="navbar-brand fw-bold" href="#">🏡 Gestión de Alquiler de Cabañas</a>
+                </div>
+            </nav>
+        
+            <div class="container my-4">
+                
+                <!-- MENÚ DE PESTAÑAS INTERACTIVAS (BOOTSTRAP TABS) -->
+                <ul class="nav nav-pills nav-fill mb-4 p-1 shadow-sm bg-white rounded-3" id="panelTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active fw-bold py-3 fs-5" id="catalogo-tab" data-bs-toggle="tab" data-bs-target="#catalogo" type="button" role="tab">
+                            🔍 Catálogo de Cabañas
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link fw-bold py-3 fs-5 text-success" id="registro-tab" data-bs-toggle="tab" data-bs-target="#registro" type="button" role="tab">
+                            ➕ Cargar Nuevo Alojamiento
+                        </button>
+                    </li>
+                </ul>
+        
+                <!-- CONTENIDO DINÁMICO DE LAS PESTAÑAS -->
+                <div class="tab-content pt-2" id="panelTabsContent">
+                    
+                    <!-- SECCIÓN 1: EL CATÁLOGO VISUAL -->
+                    <div class="tab-pane fade show active" id="catalogo" role="tabpanel">
+                        <h3 class="fw-bold mb-4 text-dark text-center">Propiedades Disponibles</h3>
+                        
+                            <div class="alert alert-info text-center py-5 shadow-sm rounded-3">
+                                <h4 class="alert-heading fw-bold">No hay cabañas registradas todavía</h4>
+                                <p class="mb-0 text-muted">Haz clic en la pestaña de al lado para registrar el primer alojamiento en la base de datos.</p>
+                            </div>
+                            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                                    <div class="col">
+                                        <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
+                                                <img src="{{ cabana.imagen.url }}" class="card-img-top" alt="{{ cabana.nombre }}" style="height: 220px; object-fit: cover;">
+                                                <div class="bg-secondary text-white d-flex align-items-center justify-content-center" style="height: 220px;">
+                                                    <span class="fw-semibold">📷 Sin Imagen</span>
+                                                </div>
+                                            <div class="card-body p-4">
+                                                <h5 class="card-title fw-bold text-dark mb-2">{{ cabana.nombre }}</h5>
+                                                <p class="card-text text-muted small text-truncate-2">{{ cabana.descripcion }}</p>
+                                                <div class="d-flex flex-wrap gap-1 mt-3">
+                                                    <span class="badge bg-primary rounded-pill">👤 Capacidad: {{ cabana.capacidad_personas }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="card-footer bg-white border-top-0 d-flex justify-content-between align-items-center p-4">
+                                                <div>
+                                                    <span class="text-success fw-bold fs-4">${{ cabana.precio_por_noche }}</span>
+                                                    <small class="text-muted block fs-7">/ noche</small>
+                                                </div>
+                                                <button class="btn btn-primary fw-bold rounded-2 px-3">Reservar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+        
+                    <!-- SECCIÓN 2: FORMULARIO DE REGISTRO CON CRISPY FORMS -->
+                    <div class="tab-pane fade" id="registro" role="tabpanel">
+                        <div class="row justify-content-center">
+                            <div class="col-md-8 col-lg-6">
+                                <div class="card shadow-sm border-0 rounded-3 overflow-hidden">
+                                    <div class="card-header bg-success text-white text-center py-3">
+                                        <h4 class="mb-0 fw-bold">Formulario de Alta</h4>
+                                    </div>
+                                    <div class="card-body p-4">
+                                        <!-- Enctype es mandatorio para procesar la subida de imágenes -->
+                                        <form method="POST" enctype="multipart/form-data">
+                                       
+                                            
+                                            <div class="d-grid mt-4">
+                                                <button type="submit" class="btn btn-success btn-lg fw-bold rounded-2 shadow-sm">
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                </div>
+            </div>
+        
+            <!-- Bootstrap 5 JS Bundle (OBLIGATORIO para cambiar entre pestañas al hacer clic) -->
+            <script src="https://jsdelivr.net"></script>
+        </section>
+        
+        <section class="row justify-content-center mb-5" id="chatbot">
+            <div class="col-lg-10">
+                <div class="chatbot-iframe shadow-sm">
+                    <iframe src="/chatbot/" width="100%" height="500" title="Chatbot de consultas"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <section class="row justify-content-center mb-5" id="fotos">
+            <div class="col-lg-10">
+                <h2 class="h4 text-verde-medio fw-bold mb-3">Mas fotos de nuestras cabanas</h2>
+                <div class="galeria-secundaria">
+                    <div class="foto-card shadow-sm">
+                        <img src="images/foto_principal.jpg.jpeg" alt="Cabanas
+                        <foto 1" class="galeria-img">
+                    </div>
+                    <div class="foto-card shadow-sm">
+                        <img src="images/cabana_foto2.jpg" alt="Cabanas
+                            <foto 2" class="galeria-img">
+                    </div>
+                    <div class="foto-card shadow-sm">
+                        <img src="images/cabana_foto3.jpg" alt="Cabanas
+                        < foto 3" class="galeria-img">
+                    </div>
+                    <div class="foto-card shadow-sm">
+                        <img src="images/cabana_foto4.jpg" alt="Cabanas
+                            <foto 4" class="galeria-img">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card shadow tarjeta-formulario border-0">
+                    <div class="card-body p-5">
+                        <h2 class="text-verde-medio mb-4 border-bottom pb-2">Consultas y reservas</h2>
+                        <p class="fs-5 mb-3">La pagina web es solo para mostrar las cabanas y responder consultas de visitantes.</p>
+                        <p class="mb-4">Completa el formulario para que la administracion pueda revisar tu solicitud.</p>
+
+                        <div class="d-flex gap-3 flex-wrap">
+                            <button type="button" class="btn btn-verde px-4" onclick="toggleChat()">Consultar por chat</button>
+                            <a href="/cabanas/#registro" class="btn btn-outline-success px-4">Registrarse o reservar</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <section class="chat-widget" aria-label="Asistente de consultas">
+        <div class="card shadow-lg chat-panel" id="chatPanel">
+            <div class="card-header bg-verde-oscuro text-white d-flex justify-content-between align-items-center">
+                <strong>Asistente de consultas</strong>
+                <button type="button" class="btn btn-sm btn-outline-light" onclick="toggleChat()">Cerrar</button>
+            </div>
+            <div class="card-body chat-messages" id="chatMessages">
+                <div class="chat-message chat-bot">Bienvenidos a nuestras cabanas con piscina en el centro de Mina Clavero
+
+Estamos emocionados de ofrecerte un hogar lejos de casa en el corazon de Mina Clavero.
+
+Nuestras cabanas son ideales para familias, parejas y amigos que buscan una estadia relajante y divertida.
+
+Nuestra ubicacion es la mejor, en el corazon de Mina Clavero, a solo 200 mts de Av San Martin, de la Direccion de turismo, de la comisaria y nueva estacion YPF. Tambien a 500 mts del balneario y playas centrales, Casino, paseo de artesanos y mucho mas.
+
+Cerca de restaurantes, tiendas, supermercados y lugares de interes turistico.
+
+No se necesita el vehiculo para salir de paseo y compras, todo esta cerca y a pocos pasos.
+
+Caracteristicas de las cabanas
+
+- Cabanas con capacidad para 2, 3, 4 y 5 huespedes, con una o dos habitaciones.
+- Cada Cabanas
+ cuenta con una cocina equipada, aire acondicionado y WiFi gratuito.
+- Cochera cubierta y galeria individual.
+- Juegos de jardin individuales con sombrillas.
+- Piscina compartida de 9 x 4 metros para disfrutar del sol y la diversion.
+- Solarium con reposeras comodas para relajarte.
+
+Servicios y comodidades
+
+- Asistencia turistica para ayudarte a planificar tus actividades en Mina Clavero.
+- Quincho y asadores portatiles.
+- Ventiladores.
+- TV smart.
+- Microondas.
+- Heladera con freezer.
+- Vajilla completa.
+- Pava electrica.
+- Secador de pelo disponible bajo pedido.
+- Plancha y tabla de planchar disponible bajo pedido.
+- Lavarropas de uso compartido.
+- Amplio parque cerrado y seguro.
+- Incluyen sabanas pero no toallas ni toallones.
+
+Reservas mediante sena unicamente.
+
+Ninos cuentan como huespedes.
+
+No se aceptan mascotas.
+
+Por consultas y reservas comunicarse:
+
+WhatsApp 3544562397
+
+Telefono 03544470253
+
+Esperamos verte pronto!!!</div>
+            </div>
+            <form class="card-footer bg-white d-flex gap-2" onsubmit="sendChatMessage(event)">
+                <input id="chatInput" type="text" class="form-control" placeholder="Escribi tu consulta" aria-label="Mensaje para el chatbot" autocomplete="off">
+                <button class="btn btn-verde" type="submit">Enviar</button>
+            </form>
+        </div>
+        <button class="btn btn-verde w-100 py-3 shadow" type="button" onclick="toggleChat()">Consultar por chat</button>
+    </section>
+
+    <footer class="bg-verde-oscuro text-white text-center py-4 mt-auto">
+        <div class="container">
+            <p class="mb-1">&copy; 2026 Espindola Cabanas. Todos los derechos reservados.</p>
+            <p class="mb-0 small">Mina Clavero, Cordoba | WhatsApp: 3544562397 | reservas@espindolacabanas.com</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleChat() {
+            document.getElementById("chatPanel").classList.toggle("open");
+        }
+
+        function addChatMessage(text, type) {
+            const messages = document.getElementById("chatMessages");
+            const item = document.createElement("div");
+            item.className = "chat-message " + type;
+            item.textContent = text;
+            messages.appendChild(item);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        async function sendChatMessage(event) {
+            event.preventDefault();
+            const input = document.getElementById("chatInput");
+            const message = input.value.trim();
+
+            if (!message) {
+                return;
+            }
+
+            addChatMessage(message, "chat-user");
+            input.value = "";
+
+            try {
+                const response = await fetch("/chatbot/api/", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ message })
+                });
+                const data = await response.json();
+                addChatMessage(data.reply || "No pude procesar la consulta.", "chat-bot");
+            } catch (error) {
+                addChatMessage("No se pudo conectar con el asistente. Intenta nuevamente.", "chat-bot");
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
