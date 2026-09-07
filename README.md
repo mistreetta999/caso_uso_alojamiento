@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 ## 🏢 1. Estructura de la Base de Datos (Modelos)
 Lo primero es definir qué datos vas a guardar. En tu archivo models.py necesitarás al menos tres tablas principales:
@@ -28,3 +29,7 @@ Para que tus formularios se vean profesionales y se adapten a teléfonos móvile
 
 
 
+=======
+# caso_uso_alojamiento
+proyecto academico para examenes de alumna carolina mistretta 
+>>>>>>> aaa5d9b14cc3630207f6eb52507004a8613ecd87
