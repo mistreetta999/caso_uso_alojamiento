@@ -1,0 +1,2 @@
+Requirement already satisfied: django-crispy-forms in C:\Users\carol\AppData\Local\Programs\Python\Python314\Lib\site-packages (2.7)
+Requirement already satisfied: django>=5.2 in C:\Users\carol\AppData\Local\Programs\Python\Python314\Lib\site-packages (from django-crispy-forms) (6.1.1)

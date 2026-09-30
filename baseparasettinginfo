@@ -1,21 +1,17 @@
 """
 Configuración principal del proyecto de Django para el sistema de alojamientos.
 """
-import os
-import dj_database_url
 from pathlib import Path
 
 # Ruta base del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Clave secreta (Segura en producción usando variables de entorno)
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-clave-de-desarrollo-alquileres-cabanas')
+# Clave secreta (solo para desarrollo)
+SECRET_KEY = 'django-insecure-clave-de-desarrollo-alquileres-cabanas'
 
-# Modo debug (Falso en producción a menos que se fuerce por entorno)
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-
-# Permitir localhost en desarrollo y cualquier host asignado por Render en producción
-ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".onrender.com"]
+# Modo debug (True en desarrollo, False en producción)
+DEBUG = True
+ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
 
 
 # Aplicaciones instaladas
@@ -32,18 +28,19 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
 
+
     # Tus apps dentro del paquete sistema_alojamientos
     "alojamientos_apps",
     "sistema_alojamientos.cabanas",
     "sistema_alojamientos.clientes",
     "sistema_alojamientos.alojamientos",
     "sistema_alojamientos.reservas",
+
 ]
 
-# Middleware (Se añade WhiteNoise justo después de SecurityMiddleware para los estáticos)
+# Middleware
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # <-- Obligatorio para producción
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -54,6 +51,7 @@ MIDDLEWARE = [
 
 # Configuración de URLs y WSGI/ASGI
 WSGI_APPLICATION = "sistema_alojamientos.wsgi.application"
+#ASGI_APPLICATION = "sistema_alojamientos.asgi.application"
 ROOT_URLCONF = "sistema_alojamientos.urls"
 
 
@@ -61,7 +59,7 @@ ROOT_URLCONF = "sistema_alojamientos.urls"
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / "templates"],
+        'DIRS': [BASE_DIR / "templates"],  # carpeta templates en la raíz
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -74,12 +72,12 @@ TEMPLATES = [
     },
 ]
 
-# Base de datos (Usa PostgreSQL en producción y SQLite en tu máquina local)
+# Base de datos (SQLite por defecto)
 DATABASES = {
-    'default': dj_database_url.config(
-        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 # Validadores de contraseña
@@ -96,15 +94,13 @@ TIME_ZONE = 'America/Argentina/Buenos_Aires'
 USE_I18N = True
 USE_TZ = True
 
-# Archivos estáticos y media con soporte WhiteNoise
+# Archivos estáticos y media
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'sistema_alojamientos' / 'static']
+
+# Carpeta donde Django recopila todos los estáticos al hacer collectstatic
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
-# Almacenamiento optimizado para producción
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-# Carpeta de medios subidos por usuarios
+# Carpeta donde se almacenan los archivos subidos por los usuarios
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -112,4 +108,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
+# Campo por defecto para IDs
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
