@@ -19,4 +19,9 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
     path("", dashboard, name="dashboard"),
+    path("alojamientos/", include("sistema_alojamientos.alojamientos.urls")),
+    path("cabanas/", include("sistema_alojamientos.cabanas.urls")),
+    path("reservas/", include("sistema_alojamientos.reservas.urls")),
+    path("clientes/", include("sistema_alojamientos.clientes.urls")),   
+    path("template/", include("sistema_alojamientos.template.urls")),
 ]

@@ -1,7 +1,12 @@
-"""ASGI configuration for cabanas project."""
+"""
+ASGI config cabanas.
+
+Expone la aplicación ASGI como una variable llamada `application`.
+"""
+
 import os
 from django.core.asgi import get_asgi_application
-from sistema_alojamientos.cabanas  import Cabana
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cabanas.settings')
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sistema_alojamientos.settings')
 
 application = get_asgi_application()

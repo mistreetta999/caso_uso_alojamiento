@@ -6,8 +6,7 @@ import sys
 
 def main():
     """Punto de entrada para tareas administrativas de Django."""
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sistema_alojamientos.settings")
-
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sistema_alojamientos.settings')
     try:
         from django.core.management import execute_from_command_line  # pylint: disable=import-outside-toplevel
     except ImportError as exc:
