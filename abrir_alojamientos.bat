@@ -13,4 +13,4 @@ REM Abrir navegador en el panel de administración
 start "" http://127.0.0.1:8000/admin/
 
 pause
-#abrir con user =carol y password = superseguroani
+#abrir con user =carol y palabra =superseguro

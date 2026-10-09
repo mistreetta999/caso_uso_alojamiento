@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sistema de Alojamientos</title>
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+    <body>
+        <header>
+            <h1>🏡 Sistema de Gestión de Alojamientos</h1>
+            <nav id="nav">
+                <ul>
+                    <li><a href="{% url 'clientes:index' %}">Gestión de Clientes</a></li>
+                    <li><a href="{% url 'cabanas:index' %}">Gestión de Cabañas</a></li>
+                    <li><a href="{% url 'reservas:index' %}">Gestión de Reservas</a></li>
+                    <li><a href="{% url 'alojamientos:index' %}">Alojamientos</a></li>
+                </ul>
+            </nav>
+            <button id="menu-btn">☰ Menú</button>
+        </header>
+    
+        <main>
+            <section>
+                <h2>Bienvenida, Carolina 🌸</h2>
+                <p>Selecciona una sección para comenzar a administrar tu sistema:</p>
+                <ul>
+                    <li>Registrar y administrar clientes</li>
+                    <li>Agregar y editar cabañas</li>
+                    <li>Gestionar reservas y alquileres</li>
+                    <li>Visualizar alojamientos disponibles</li>
+                </ul>
+                <button id="reservar-btn">Realizar Reserva</button>
+            </section>
+        </main>
+    
+        <footer>
+            <p>&copy; 2026 Sistema de Alojamientos - Django</p>
+        </footer>
+    
+        <!-- Script principal -->
+        <script src="{% static 'js/main.js' %}"></script>
+    </body>
+    </html>
+    

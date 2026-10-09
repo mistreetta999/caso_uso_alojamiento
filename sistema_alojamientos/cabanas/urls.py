@@ -1,21 +1,14 @@
-"""URLs de la aplicación Cabañas."""
 from django.urls import path
-from django.urls import include
-from .views import (
-    CabanaDetailView,
-    CabanaCreateView,
-    CabanaUpdateView,
-    CabanaDeleteView
-)
-
-app_name = 'cabanas'  # pylint: disable=invalid-name
+from . import views
 
 urlpatterns = [
-    
-    path('<int:pk>/', CabanaDetailView.as_view(), name='cabana_detail'),
-    path('nueva/', CabanaCreateView.as_view(), name='cabana_create'),
-    path('<int:pk>/editar/', CabanaUpdateView.as_view(), name='cabana_edit'),
-    path('<int:pk>/eliminar/', CabanaDeleteView.as_view(), name='cabana_delete'),
-    path('alojamientos/', include(('alojamientos_apps.urls', 'alojamientos'), namespace='alojamientos')),
-    
+    # Funciones simples
+    path("", views.lista_cabanas, name="lista_cabanas"),
+    path("vistas/", views.lista_cabanas_vistas, name="lista_cabanas_vistas"),
+    path("alojamientos/", views.lista_alojamientos, name="lista_alojamientos"),
+    path("index/", views.index, name="cabanas_index"),
+
+    # Vistas basadas en clases
+    path("inicio/", views.InicioView.as_view(), name="cabanas_inicio"),
+    path("sistema/", views.SistemaUnificadoView.as_view(), name="cabanas_sistema_unificado"),
 ]

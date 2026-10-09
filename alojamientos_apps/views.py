@@ -1,47 +1,50 @@
 """
-views.py - Vistas para la app alojamientos_apps
+Vistas del módulo de alojamientos.
 """
+from django.views.generic import TemplateView
+from django.views import View
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from sistema_alojamientos.cabanas.models import Cabana
+from sistema_alojamientos.clientes.models import Cliente
+from sistema_alojamientos.reservas.models import Reserva
+from sistema_alojamientos.alojamientos.models import Alojamiento
 
-from .models import Alojamiento
-from .forms import AlojamientoForm
+class InicioView(TemplateView):  # pylint: disable=too-few-public-methods
+    """Vista de inicio del módulo de alojamientos."""
+    template_name = "inicio.html"
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["mensaje"] = "Bienvenido al módulo de alojamientos"
+        return context
 
-# Vista de inicio simple
-def home(request):
-    return HttpResponse("Bienvenido a la app de alojamientos")
 
-# Listar alojamientos
+# Vista de inicio (función simple)
+def inicio(request):
+    return render(request, "inicio.html")
+
+# Vista unificada (Class-Based View)
+class SistemaUnificadoView(View):
+    """Vista unificada que muestra cabanas, clientes, reservas y alojamientos."""
+    def get(self, request):
+        contexto = {
+            "cabanas": Cabana.objects.all(),
+            "clientes": Cliente.objects.all(),
+            "reservas": Reserva.objects.select_related("cliente", "cabana").all(),
+            "alojamientos": Alojamiento.objects.all(),
+        }
+        return render(request, "sistema_unificado.html", contexto)
+
+def index(request):
+    """Vista de índice del módulo de alojamientos."""
+    return HttpResponse("Bienvenido al módulo de alojamientos")
+
 def lista_alojamientos(request):
-    alojamientos = Alojamiento.objects.all()
-    return render(request, "alojamientos_apps/lista.html", {"alojamientos": alojamientos})
+    """Vista de la lista de alojamientos del módulo de alojamientos."""
+    alojamientos = Alojamiento.objects.all()  # pylint: disable=no-member
+    return render(request, "lista_alojamientos.html", {"alojamientos": alojamientos})
 
-# CRUD con vistas genéricas
-class AlojamientoListView(ListView):
-    model = Alojamiento
-    template_name = "alojamientos_apps/lista.html"
-    context_object_name = "alojamientos"
-
-class AlojamientoDetailView(DetailView):
-    model = Alojamiento
-    template_name = "alojamientos_apps/detalle.html"
-    context_object_name = "alojamiento"
-
-class AlojamientoCreateView(CreateView):
-    model = Alojamiento
-    form_class = AlojamientoForm
-    template_name = "alojamientos_apps/form.html"
-    success_url = reverse_lazy("lista_alojamientos")
-
-class AlojamientoUpdateView(UpdateView):
-    model = Alojamiento
-    form_class = AlojamientoForm
-    template_name = "alojamientos_apps/form.html"
-    success_url = reverse_lazy("lista_alojamientos")
-
-class AlojamientoDeleteView(DeleteView):
-    model = Alojamiento
-    template_name = "alojamientos_apps/confirmar_eliminar.html"
-    success_url = reverse_lazy("lista_alojamientos")
+def detalle_alojamiento(request, alojamiento_id):
+    """Vista del detalle de un alojamiento del módulo de alojamientos."""
+    alojamiento = Alojamiento.objects.get(id=alojamiento_id)  # pylint: disable=no-member
+    return render(request, "detalle_alojamiento.html", {"alojamiento": alojamiento})

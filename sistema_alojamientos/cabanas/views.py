@@ -1,51 +1,39 @@
-""" views"""
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.http import HttpResponse
+from django.views import View
 from .models import Cabana
+from sistema_alojamientos.alojamientos.models import Alojamiento
 
-def panel_cabanas(request):
-    """ Panel de cabañas del sistema de gestión """
-    # Aquí podrías pasar datos reales de tus modelos
-    contexto = {
-        "titulo": "Panel de Cabañas",
-        "mensaje": "Bienvenida al sistema de gestión de cabañas"
-    }
-    return render(request, "cabanas/panel.html", contexto)
+def lista_cabanas(request):
+    """Vista para listar todas las cabañas."""
+    cabanas = Cabana.objects.all()
+    return render(request, "cabanas/lista.html", {"cabanas": cabanas})
 
-# Listado de cabañas
-class CabanaListView(ListView):
-    """ Vista de listado de cabañas """
-    model = Cabana
-    template_name = "cabanas/cabana_list.html"
-    context_object_name = "cabanas"
+def lista_cabanas_vistas(request):
+    """Vista para listar todas las cabañas (vistas)."""
+    cabanas = Cabana.objects.all()
+    return render(request, "cabanas/lista.html", {"cabanas": cabanas})
 
-# Detalle de una cabaña
-class CabanaDetailView(DetailView):
-    """ Vista de detalle de una cabaña """
-    model = Cabana
-    template_name = "cabanas/cabana_detail.html"
-    context_object_name = "cabana"
+# Vista de inicio
+class InicioView(View):
+    """Vista para la página de inicio."""
+    def get(self, request):
+        return render(request, "cabanas/inicio.html")
 
-# Crear nueva cabaña
-class CabanaCreateView(CreateView):
-    """ Vista para crear una nueva cabaña """
-    model = Cabana
-    template_name = "cabanas/cabana_form.html"
-    fields = ["nombre", "descripcion", "precio", "disponible"]
-    success_url = reverse_lazy("cabanas:cabanas_list")
+# Vista unificada
+class SistemaUnificadoView(View):
+    """Vista para el sistema unificado."""
+    def get(self, request):
+        contexto = {"alojamientos": sistemas_alojamientos.objects.all()}
+        return render(request, "cabanas/sistema_unificado.html", contexto)
 
-# Editar cabaña existente
-class CabanaUpdateView(UpdateView):
-    """ Vista para editar una cabaña existente """
-    model = Cabana
-    template_name = "cabanas/cabana_form.html"
-    fields = ["nombre", "descripcion", "precio", "disponible"]
-    success_url = reverse_lazy("cabanas:cabanas_list")
+# Vista lista de alojamientos
+def lista_alojamientos(request):
+    """Vista para listar todos los alojamientos."""
+    alojamientos = sistemas_alojamientos.objects.all()
+    return render(request, "cabanas/lista_alojamientos.html", {"alojamientos": alojamientos})
 
-# Eliminar cabaña
-class CabanaDeleteView(DeleteView):
-    """ Vista para eliminar una cabaña """
-    model = Cabana
-    template_name = "cabanas/cabana_confirm_delete.html"
-    success_url = reverse_lazy("cabanas:cabanas_list")
+# Vista index
+def index(request):
+    """Vista para la página index."""
+    return render(request, "cabanas/index.html")

@@ -1,19 +1,20 @@
 """urls.py - Configuración de URLs de la aplicación de reservas."""
 from django.urls import path
-from .views import (
-    ReservaListView,
-    ReservaDetailView,
-    ReservaCreateView,
-    ReservaUpdateView,
-    ReservaDeleteView,
-)
+    # include eliminado (evita bucle)
+from . import views
 
-app_name = "reservas"
+
 
 urlpatterns = [
-    path("", ReservaListView.as_view(), name="list"),
-    path("<int:pk>/", ReservaDetailView.as_view(), name="detail"),
-    path("crear/", ReservaCreateView.as_view(), name="create"),
-    path("<int:pk>/editar/", ReservaUpdateView.as_view(), name="update"),
-    path("<int:pk>/eliminar/", ReservaDeleteView.as_view(), name="delete"),
+    # Funciones simples
+    path("", views.index, name="index"),
+    path("lista/", views.lista_reservas, name="lista"),
+    path("sistema/", views.SistemaUnificadoView.as_view(), name="sistema_unificado"),
+
+    # Vistas basadas en clases (CRUD)
+    path("lista-class/", views.ReservaListView.as_view(), name="lista_reservas_class"),
+    path("detalle/<int:pk>/", views.ReservaDetailView.as_view(), name="detalle_reserva"),
+    path("crear/", views.ReservaCreateView.as_view(), name="crear_reserva"),
+    path("editar/<int:pk>/", views.ReservaUpdateView.as_view(), name="editar_reserva"),
+    path("eliminar/<int:pk>/", views.ReservaDeleteView.as_view(), name="eliminar_reserva"),
 ]

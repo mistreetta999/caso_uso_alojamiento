@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Lista de Alojamientos</title>
+    </head>
+    <body>
+        <h1>Alojamientos disponibles</h1>
+        <ul>
+            {% for alojamiento in alojamientos %}
+                <li>{{ alojamiento.nombre }} - {{ alojamiento.ubicacion }}</li>
+            {% endfor %}
+        </ul>
+    </body>
+    </html>
+    

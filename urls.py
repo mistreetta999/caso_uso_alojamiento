@@ -1,33 +1,33 @@
-""" urls.py - Configuración de URLs del proyecto de alojamientos. """
+"""
+URL configuration for the sistema_alojamientos project.
+"""
 from django.contrib import admin
-from django.urls import path
-import views
+from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from django.views.generic import RedirectView
 
 urlpatterns = [
-    # Admin de Django
     path("admin/", admin.site.urls),
 
-    # Página de inicio
-    path("", views.home, name="home"),
+    # ⚡ Redirigir raíz directamente a reservas (podés cambiarlo a clientes o cabañas)
+    path("", RedirectView.as_view(url="/reservas/", permanent=False)),
 
-    # Vistas individuales por app
-    path("cabanas/", views.lista_cabanas, name="lista_cabanas"),
-    path("clientes/", views.lista_clientes, name="lista_clientes"),
-    path("reservas/", views.lista_reservas, name="lista_reservas"),
-    path("alojamientos/", views.lista_alojamientos, name="lista_alojamientos"),
-   
-    # Vista unificada con todo el sistema
-    path("sistema/", views.sistema_unificado, name="sistema_unificado"),
+    # Apps internas
+    path("cabanas/", include("sistema_alojamientos.cabanas.urls")),
+    path("alojamientos/", include("sistema_alojamientos.alojamientos.urls")),
+    path("clientes/", include("sistema_alojamientos.clientes.urls")),
+    path("reservas/", include("sistema_alojamientos.reservas.urls")),
 
-    # Vistas genéricas basadas en clases para alojamientos
-    path("alojamientos/lista/", views.AlojamientoListView.as_view(), name="lista_alojamientos"),
-    path("alojamientos/<int:pk>/", views.AlojamientoDetailView.as_view(), name="detalle_alojamiento"),
-    path("alojamientos/nuevo/", views.AlojamientoCreateView.as_view(), name="crear_alojamiento"),
-    path("alojamientos/<int:pk>/editar/", views.AlojamientoUpdateView.as_view(), name="editar_alojamiento"),
-    path("alojamientos/<int:pk>/eliminar/", views.AlojamientoDeleteView.as_view(), name="eliminar_alojamiento"),
-
-    # Dashboard opcional
-    path("dashboard/", views.DashboardView.as_view(), name="dashboard"),
+    # App externa
+    path("alojamientos-apps/", include("alojamientos_apps.urls")),
 ]
 
+# Archivos estáticos y media
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+# Redirigir cualquier URL no encontrada a la página de inicio de reservas
+urlpatterns += [
+    path("", RedirectView.as_view(url="/reservas/", permanent=False)),
+]
+    

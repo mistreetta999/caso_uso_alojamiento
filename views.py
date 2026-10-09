@@ -1,81 +1,28 @@
-"""
-Vistas principales del sistema de alojamientos.
-"""
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
+from django.views import View
+from django.views.generic import TemplateView
 
-# Importar modelos de cada app
-from sistema_alojamientos.cabanas.models import Cabana
-from sistema_alojamientos.clientes.models import Cliente
-from sistema_alojamientos.reservas.models import Reserva
-from sistema_alojamientos.alojamientos.models import Alojamiento
-from alojamientos_apps.models import Alojamientos
+# Vista principal del sistema
+class InicioView(TemplateView):
+    template_name = "inicio.html"   # asegurate de tener este template en tu carpeta templates
 
-# Página de inicio
-def home(request):
-    return render(request, "home.html")
+# Vista unificada del sistema
 
-# Listados individuales
-def lista_cabanas(request):
-    cabanas = Cabana.objects.all()
-    return render(request, "cabanas/lista.html", {"cabanas": cabanas})
 
-def lista_clientes(request):
-    clientes = Cliente.objects.all()
-    return render(request, "clientes/lista.html", {"clientes": clientes})
+# Vista de ayuda o información
+class AyudaView(View):
+    """Vista de ayuda o información del sistema."""
+    def get(self, request):
+        return render(request, "ayuda.html")
 
-def lista_reservas(request):
-    reservas = Reserva.objects.select_related("cliente", "cabana").all()
-    return render(request, "reservas/lista.html", {"reservas": reservas})
+# Vista de contacto
+class ContactoView(View):
+    """Vista de contacto del sistema."""
+    def get(self, request):
+        return render(request, "contacto.html")
 
-def lista_alojamientos(request):
-    alojamientos = Alojamientos.objects.all()
-    return render(request, "alojamientos/lista.html", {"alojamientos": alojamientos})
-
-# Vista unificada
-def sistema_unificado(request):
-    contexto = {
-        "cabanas": Cabana.objects.all(),
-        "clientes": Cliente.objects.all(),
-        "reservas": Reserva.objects.select_related("cliente", "cabana").all(),
-        "alojamientos": Alojamientos.objects.all(),
-    }
-    return render(request, "sistema_unificado.html", contexto)
-
-# Vistas genéricas basadas en clases
-class HomeView(TemplateView):
-    template_name = "home.html"
-    def get(self, request, *args, **kwargs):
-        return HttpResponse("Bienvenido al sistema de alojamientos")
-
-class DashboardView(TemplateView):
-    template_name = "dashboard.html"
-
-class AlojamientoListView(ListView):
-    model = Alojamiento
-    template_name = "alojamientos/lista_alojamientos.html"
-    context_object_name = "alojamientos"
-
-class AlojamientoDetailView(DetailView):
-    model = Alojamiento
-    template_name = "alojamientos/detalle_alojamiento.html"
-    context_object_name = "alojamiento"
-
-class AlojamientoCreateView(CreateView):
-    model = Alojamiento
-    template_name = "alojamientos/form_alojamiento.html"
-    fields = ["nombre", "direccion", "capacidad", "precio"]
-    success_url = reverse_lazy("lista_alojamientos")
-
-class AlojamientoUpdateView(UpdateView):
-    model = Alojamiento
-    template_name = "alojamientos/form_alojamiento.html"
-    fields = ["nombre", "direccion", "capacidad", "precio"]
-    success_url = reverse_lazy("lista_alojamientos")
-
-class AlojamientoDeleteView(DeleteView):
-    model = Alojamiento
-    template_name = "alojamientos/confirmar_eliminar.html"
-    success_url = reverse_lazy("lista_alojamientos")
+# Vista del sistema unificado
+class SistemaUnificadoView(View):
+    """Vista del sistema unificado."""
+    def get(self, request):
+        return render(request, "sistema_unificado.html")

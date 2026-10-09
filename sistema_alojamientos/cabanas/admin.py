@@ -1,6 +1,8 @@
-"""Admin configuration for the cabanas app."""
 from django.contrib import admin
 from .models import Cabana
 
-# Register the Cabana model with the admin site for management through the Django admin interface.
-admin.site.register(Cabana)
+@admin.register(Cabana)
+class CabanaAdmin(admin.ModelAdmin):
+    """Admin interface for the Cabana model."""
+    list_display = ["id", "nombre", "capacidad", "precio"]
+    list_filter = ["capacidad", "precio"]

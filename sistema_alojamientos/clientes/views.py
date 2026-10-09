@@ -1,17 +1,28 @@
 """
 Vistas para la gestión de clientes.
 """
+from django.http import HttpResponse
+from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, ListView
 from django.urls import reverse_lazy
-from django.shortcuts import redirect
 from django.views import View
 from .models import Cliente
 
-class HomeView(View):
-    """Vista principal que redirige a la lista de clientes."""
-    def get(self, request, *args, **kwargs):
-        """Redirige la solicitud a la lista de clientes."""
-        return redirect("clientes:list")
+
+def index(request):
+    return render(request, "clientes/index.html")
+
+class SistemaUnificadoView(View):
+    """Vista que representa el sistema unificado."""
+    def get(self, request):
+        # lógica
+        return HttpResponse("Sistema Unificado")
+def listar_clientes(request):
+    # lógica para listar clientes
+    return render(request, "clientes/listar.html")
+def index(request):
+    # lógica para la página principal de clientes
+    return render(request, "clientes/index.html")           
 
 class ClienteListView(ListView):
     """Vista de lista que muestra todos los clientes registrados."""

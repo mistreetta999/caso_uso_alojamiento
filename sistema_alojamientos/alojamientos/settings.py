@@ -7,7 +7,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Clave secreta (solo para desarrollo)
-SECRET_KEY = 'django-insecure-clave-de-desarrollo-alquileres-cabanas'
+SECRET_KEY = 'superseguro'
 
 # Modo debug (True en desarrollo, False en producción)
 DEBUG = True
@@ -30,10 +30,11 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
 
     # Tus aplicaciones
-    'alojamientos',
-    'cabanas',
-    'clientes',
-    'alquileres',
+    'sistemas_alojamientos.alojamientos',
+    'sistemas_alojamientos.cabanas',
+    'sistemas_alojamientos.clientes',
+    'sistemas_alojamientos.alquileres',
+    'alojamientos_apps'
 ]
 
 # Middleware
@@ -48,10 +49,10 @@ MIDDLEWARE = [
 ]
 
 # Configuración de URLs y WSGI/ASGI
-ROOT_URLCONF = 'alojamientos.urls'
+ROOT_URLCONF = 'sistemas_alojamientos.alojamientos.urls'
 
-WSGI_APPLICATION = 'alojamientos.wsgi.application'
-ASGI_APPLICATION = 'alojamientos.asgi.application'
+WSGI_APPLICATION = 'sistemas_alojamientos.alojamientos.wsgi.application'
+ASGI_APPLICATION = 'sistemas_alojamientos.alojamientos.asgi.application'
 
 # Configuración de templates
 TEMPLATES = [

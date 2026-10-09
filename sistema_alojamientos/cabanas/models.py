@@ -1,17 +1,12 @@
-""" models"""
+"""
+Modelos para la aplicación 'cabanas'.
+"""
 from django.db import models
 
-class Cabana(models.Model):  
-    """ class cabana"""
+class Cabana(models.Model):
     nombre = models.CharField(max_length=100)
-    descripcion = models.TextField()
+    capacidad = models.IntegerField()   # ahora sí existe
     precio = models.DecimalField(max_digits=10, decimal_places=2)
-    disponible = models.BooleanField(default=True)
 
-    class Meta:
-        """ class meta"""
-        verbose_name = "Cabana"
-        verbose_name_plural = "Cabanas"
-
-    def __str__(self)->str:
-        return str(self.nombre)
+    def __str__(self):
+        return self.nombre

@@ -1,16 +1,48 @@
 """Vistas de la aplicación de alojamientos."""
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.shortcuts import redirect
+from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
 
+from ..cabanas.models import Cabana
 from .models import Alojamiento
-from django.shortcuts import render
+
+def cabanas(request):
+    """Vista para listar todas las cabañas."""
+    cabanas = Cabana.objects.all()
+    return render(request, "cabanas/lista.html", {"cabanas": cabanas})
+def lista_alojamientos(request):
+    """Vista para listar alojamientos con función simple."""
+    alojamientos = Alojamiento._default_manager.all()  # pylint: disable=protected-access
+    return render(request, "alojamientos/index.html", {"alojamientos": alojamientos})
+def index(request):
+    """Muestra la página principal de alojamientos."""
+    return HttpResponse("Página de alojamientos")
+
+# Vista de inicio
+class InicioView(TemplateView):
+    """Vista de inicio del sistema de alojamientos."""
+    template_name = "inicio.html"
+
+
+# Vista principal del sistema unificado
+class SistemaUnificadoView(TemplateView):
+    """Vista principal del sistema unificado."""
+    template_name = "sistema_unificado.html"
+
+    def get_context_data(self, **kwargs):
+        contexto = super().get_context_data(**kwargs)
+        contexto["alojamientos"] = Alojamiento._default_manager.all()  # pylint: disable=protected-access
+        return contexto
 
 def lista_alojamientos(request):
-    # lógica de tu lista
-    return render(request, "alojamientos/lista.html")
+    """Vista para listar alojamientos con función simple."""
+    alojamientos = Alojamiento._default_manager.all()  # pylint: disable=protected-access
+    return render(request, "alojamientos/index.html", {"alojamientos": alojamientos})
+
 
 def dashboard(request):
+    """Vista para mostrar el panel de control del sistema de alojamientos."""
     return render(request, "alojamientos/dashboard.html")
 
 
@@ -20,29 +52,25 @@ class HomeView(TemplateView):
         return redirect("lista_alojamientos")
 
 
-# Vista Dashboard
 class DashboardView(TemplateView):
     """Vista del panel de control del sistema de alojamientos."""   
-    template_name = "dashboard.html"
+    template_name = "alojamientos/dashboard.html"
 
 
-# Importar el modelo Alojamiento
-
-# Listar alojamientos
 class AlojamientoListView(ListView):
     """Vista para listar todos los alojamientos."""
     model = Alojamiento
     template_name = "alojamientos/lista_alojamientos.html"
     context_object_name = "alojamientos"
 
-# Detalle de un alojamiento
+
 class AlojamientoDetailView(DetailView):
     """Vista para mostrar el detalle de un alojamiento específico."""
     model = Alojamiento
     template_name = "alojamientos/detalle_alojamiento.html"
     context_object_name = "alojamiento"
 
-# Crear alojamiento
+
 class AlojamientoCreateView(CreateView):
     """Vista para crear un nuevo alojamiento."""
     model = Alojamiento
@@ -50,7 +78,7 @@ class AlojamientoCreateView(CreateView):
     fields = ["nombre", "direccion", "capacidad", "precio"]
     success_url = reverse_lazy("lista_alojamientos")
 
-# Editar alojamiento
+
 class AlojamientoUpdateView(UpdateView):
     """Vista para editar un alojamiento existente."""
     model = Alojamiento
@@ -58,7 +86,7 @@ class AlojamientoUpdateView(UpdateView):
     fields = ["nombre", "direccion", "capacidad", "precio"]
     success_url = reverse_lazy("lista_alojamientos")
 
-# Eliminar alojamiento
+
 class AlojamientoDeleteView(DeleteView):
     """Vista para eliminar un alojamiento existente."""
     model = Alojamiento
