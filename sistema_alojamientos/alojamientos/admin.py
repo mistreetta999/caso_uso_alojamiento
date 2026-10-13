@@ -5,4 +5,4 @@ from .models import Alojamiento
 class AlojamientoAdmin(admin.ModelAdmin):
     list_display = ("nombre", "capacidad", "precio")
     search_fields = ("nombre",)
-    list_filter = ("capacidad",)
+    list_filter = ("capacidad",)    

@@ -1,8 +1,13 @@
+import os
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
 from .models import Cabana
 from sistema_alojamientos.alojamientos.models import Alojamiento
+def cabanas(request):
+    return HttpResponse("Bienvenida a las cabanas")
+def index(request):
+    return HttpResponse("Bienvenida cabanas")
 
 def lista_cabanas(request):
     """Vista para listar todas las cabañas."""
@@ -22,18 +27,17 @@ class InicioView(View):
 
 # Vista unificada
 class SistemaUnificadoView(View):
-    """Vista para el sistema unificado."""
     def get(self, request):
-        contexto = {"alojamientos": sistemas_alojamientos.objects.all()}
+        contexto = {
+            "cabanas": Cabana.objects.all(),
+            "alojamientos": Alojamiento.objects.all(),
+        }
         return render(request, "cabanas/sistema_unificado.html", contexto)
 
 # Vista lista de alojamientos
 def lista_alojamientos(request):
     """Vista para listar todos los alojamientos."""
-    alojamientos = sistemas_alojamientos.objects.all()
+    alojamientos = Alojamiento.objects.all()
     return render(request, "cabanas/lista_alojamientos.html", {"alojamientos": alojamientos})
 
-# Vista index
-def index(request):
-    """Vista para la página index."""
-    return render(request, "cabanas/index.html")
+

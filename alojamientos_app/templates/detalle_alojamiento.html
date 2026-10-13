@@ -1,0 +1,11 @@
+<script src="{% static 'js/main.js' %}"></script>
+
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ alojamiento.nombre }}</h2>
+<p>Ubicación: {{ alojamiento.ubicacion }}</p>
+<p>Precio por noche: {{ alojamiento.precio_noche }}</p>
+<p>Disponible: {{ alojamiento.disponible }}</p>
+<a href="{% url 'alojamientos_update' alojamiento.id %}">Editar</a>
+<a href="{% url 'alojamientos_delete' alojamiento.id %}">Eliminar</a>
+{% endblock %}

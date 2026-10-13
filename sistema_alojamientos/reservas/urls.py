@@ -3,7 +3,7 @@ from django.urls import path
     # include eliminado (evita bucle)
 from . import views
 
-
+app_name = "reservas"  # pylint: disable=invalid-name
 
 urlpatterns = [
     # Funciones simples

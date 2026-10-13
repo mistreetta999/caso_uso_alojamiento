@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Unificado</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Panel Unificado</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'clientes_list' %}">Clientes</a></li>
+                <li><a href="{% url 'reservas_list' %}">Reservas</a></li>
+                <li><a href="{% url 'cabanas_list' %}">Cabañas</a></li>
+                <li><a href="{% url 'alojamientos_list' %}">Alojamientos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Sistema de Alojamientos</p>
+    </footer>
+</body>
+</html>

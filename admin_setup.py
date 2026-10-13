@@ -1,22 +1,27 @@
-import importlib
 from django.contrib import admin
-from django.apps import apps
+from sistema_alojamientos.clientes.models import Cliente
+from sistema_alojamientos.reservas.models import Reserva
+from sistema_alojamientos.cabanas.models import Cabana
+from sistema_alojamientos.alojamientos.models import Alojamiento
 
-def auto_register_admin():
-    """
-    Recorre todas las apps del proyecto y registra automáticamente
-    todos los modelos en el admin si no están registrados.
-    """
-    for app_config in apps.get_app_configs():
-        try:
-            # Importa el módulo admin de cada app si existe
-            importlib.import_module(f"{app_config.name}.admin")
-        except ModuleNotFoundError:
-            pass  # Si la app no tiene admin.py, lo ignora
+# Configuración centralizada del admin
 
-        # Registra todos los modelos de la app
-        for model in app_config.get_models():
-            try:
-                admin.site.register(model)
-            except admin.sites.AlreadyRegistered:
-                pass  # Si ya está registrado, lo ignora
+@admin.register(Cliente)
+class ClienteAdmin(admin.ModelAdmin):
+    list_display = ("nombre", "apellido", "email")
+    search_fields = ("nombre", "apellido", "email")
+
+@admin.register(Reserva)
+class ReservaAdmin(admin.ModelAdmin):
+    list_display = ("cliente", "fecha_inicio", "fecha_fin", "estado")
+    list_filter = ("estado", "fecha_inicio")
+
+@admin.register(Cabana)
+class CabanaAdmin(admin.ModelAdmin):
+    list_display = ("nombre", "capacidad", "precio")
+    search_fields = ("nombre",)
+
+@admin.register(Alojamiento)
+class AlojamientoAdmin(admin.ModelAdmin):
+    list_display = ("nombre", "ubicacion", "tipo")
+    search_fields = ("nombre", "ubicacion")

@@ -1,17 +1,17 @@
-#!/usr/bin/env python
-"""Manage.py para sistema_alojamientos."""
-
+""" manage"""
 import os
 import sys
 
 def main():
-    """Punto de entrada para tareas administrativas de Django."""
+    """Punto de entrada para la ejecución de comandos de gestión de Django."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sistema_alojamientos.settings')
     try:
         from django.core.management import execute_from_command_line  # pylint: disable=import-outside-toplevel
     except ImportError as exc:
         raise ImportError(
-            "No se pudo importar Django. ¿Está instalado en este entorno?"
+            "Couldn't import Django. Are you sure it's installed and "
+            "available on your PYTHONPATH environment variable? Did you "
+            "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
 

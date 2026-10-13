@@ -1,94 +1,81 @@
 """Vistas de la aplicación de alojamientos."""
+
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
+from rest_framework import viewsets
+from .models import Alojamiento, Cliente, Cabana, Reserva
+from .serializers import AlojamientoSerializer, ClienteSerializer, CabanaSerializer, ReservaSerializer      # asegurate de tenerlo
 
-from ..cabanas.models import Cabana
-from .models import Alojamiento
 
-def cabanas(request):
-    """Vista para listar todas las cabañas."""
-    cabanas = Cabana.objects.all()
-    return render(request, "cabanas/lista.html", {"cabanas": cabanas})
-def lista_alojamientos(request):
-    """Vista para listar alojamientos con función simple."""
-    alojamientos = Alojamiento._default_manager.all()  # pylint: disable=protected-access
-    return render(request, "alojamientos/index.html", {"alojamientos": alojamientos})
 def index(request):
-    """Muestra la página principal de alojamientos."""
-    return HttpResponse("Página de alojamientos")
-
-# Vista de inicio
-class InicioView(TemplateView):
-    """Vista de inicio del sistema de alojamientos."""
-    template_name = "inicio.html"
-
-
-# Vista principal del sistema unificado
-class SistemaUnificadoView(TemplateView):
-    """Vista principal del sistema unificado."""
-    template_name = "sistema_unificado.html"
-
-    def get_context_data(self, **kwargs):
-        contexto = super().get_context_data(**kwargs)
-        contexto["alojamientos"] = Alojamiento._default_manager.all()  # pylint: disable=protected-access
-        return contexto
+    return HttpResponse("Alojamientos")
 
 def lista_alojamientos(request):
-    """Vista para listar alojamientos con función simple."""
-    alojamientos = Alojamiento._default_manager.all()  # pylint: disable=protected-access
+    alojamientos = Alojamiento.objects.all()
     return render(request, "alojamientos/index.html", {"alojamientos": alojamientos})
 
 
 def dashboard(request):
-    """Vista para mostrar el panel de control del sistema de alojamientos."""
     return render(request, "alojamientos/dashboard.html")
+class InicioView(TemplateView):
+    template_name = "inicio.html"
 
+class SistemaUnificadoView(TemplateView):
+    template_name = "sistema_unificado.html"
+
+    def get_context_data(self, **kwargs):
+        contexto = super().get_context_data(**kwargs)
+        contexto["alojamientos"] = Alojamiento.objects.all()
+        return contexto
 
 class HomeView(TemplateView):
-    """Vista de inicio que redirige a alojamientos."""
     def get(self, request, *args, **kwargs):
         return redirect("lista_alojamientos")
 
-
 class DashboardView(TemplateView):
-    """Vista del panel de control del sistema de alojamientos."""   
     template_name = "alojamientos/dashboard.html"
 
-
 class AlojamientoListView(ListView):
-    """Vista para listar todos los alojamientos."""
     model = Alojamiento
     template_name = "alojamientos/lista_alojamientos.html"
     context_object_name = "alojamientos"
 
-
 class AlojamientoDetailView(DetailView):
-    """Vista para mostrar el detalle de un alojamiento específico."""
     model = Alojamiento
     template_name = "alojamientos/detalle_alojamiento.html"
     context_object_name = "alojamiento"
 
-
 class AlojamientoCreateView(CreateView):
-    """Vista para crear un nuevo alojamiento."""
     model = Alojamiento
     template_name = "alojamientos/form_alojamiento.html"
-    fields = ["nombre", "direccion", "capacidad", "precio"]
+    fields = ["nombre", "descripcion", "capacidad", "precio_por_noche"]
     success_url = reverse_lazy("lista_alojamientos")
-
 
 class AlojamientoUpdateView(UpdateView):
-    """Vista para editar un alojamiento existente."""
     model = Alojamiento
     template_name = "alojamientos/form_alojamiento.html"
-    fields = ["nombre", "direccion", "capacidad", "precio"]
+    fields = ["nombre", "descripcion", "capacidad", "precio_por_noche"]
     success_url = reverse_lazy("lista_alojamientos")
 
-
 class AlojamientoDeleteView(DeleteView):
-    """Vista para eliminar un alojamiento existente."""
     model = Alojamiento
     template_name = "alojamientos/confirmar_eliminar.html"
     success_url = reverse_lazy("lista_alojamientos")
+class  ClienteViewSet(viewsets.ModelViewSet):
+    """API REST para clientes."""
+    queryset = Cliente.objects.all()
+    serializer_class = ClienteSerializer
+class CabanaViewSet(viewsets.ModelViewSet):
+    """API REST para cabañas."""
+    queryset = Cabana.objects.all()
+    serializer_class = CabanaSerializer
+class  ReservaViewSet(viewsets.ModelViewSet):
+    """API REST para reservas."""
+    queryset = Reserva.objects.all()
+    serializer_class = ReservaSerializer
+class AlojamientoViewSet(viewsets.ModelViewSet):
+    """API REST para alojamientos."""
+    queryset = Alojamiento.objects.all()
+    serializer_class = AlojamientoSerializer

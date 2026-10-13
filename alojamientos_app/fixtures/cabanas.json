@@ -1,0 +1,23 @@
+[
+    {
+      "model": "cabanas_app.cabana",
+      "pk": 1,
+      "fields": {
+        "nombre": "Cabaña El Bosque",
+        "ubicacion": "Mina Clavero",
+        "precio": 15000.00,
+        "capacidad": 4
+      }
+    },
+    {
+      "model": "cabanas_app.cabana",
+      "pk": 2,
+      "fields": {
+        "nombre": "Cabaña La Montaña",
+        "ubicacion": "Nono",
+        "precio": 22000.00,
+        "capacidad": 6
+      }
+    }
+  ]
+  

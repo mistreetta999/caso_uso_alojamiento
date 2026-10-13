@@ -1,0 +1,11 @@
+<script src="{% static 'js/main.js' %}"></script>
+{% extends "base.html" %}
+{% block content %}
+<h1>Alojamientos disponibles</h1>
+<ul>
+    {% for alojamiento in alojamientos %}
+        <li>{{ alojamiento.nombre }} - {{ alojamiento.ubicacion }}</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'alojamientos_create' %}">Nuevo alojamiento</a>
+{% endblock %}

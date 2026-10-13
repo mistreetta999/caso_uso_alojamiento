@@ -13,7 +13,7 @@ class SistemaUnificadoView(View):
         # lógica
         return HttpResponse("Sistema Unificado")
 
-def index(request):
+def index(request): # pylint: disable=unused-argument
     """Vista para la página principal de reservas."""
     return HttpResponse(" reservas")
 

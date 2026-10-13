@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Gestión de Cabañas</title>
+    </head>
+    <body>
+        <h1>Bienvenido al sistema de alojamientos</h1>
+        <p>Esta es la página principal de la aplicación de cabañas.</p>
+    
+        <nav>
+            <ul>
+                <li><a href="{% url 'listar_cabanas' %}">Listar Cabañas</a></li>
+                <li><a href="{% url 'crear_cabana' %}">Crear Cabaña</a></li>
+                <li><a href="{% url 'detalle_cabana' id=1 %}">Detalle Cabaña</a></li>
+            </ul>
+        </nav>
+    </body>
+    </html>
+    

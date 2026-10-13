@@ -1,9 +1,15 @@
+from django.core import paginator
 from django.urls import path
 from . import views
+from django.contrib import admin
+from django.urls import include
 
-app_name = "clientes"
+app_name = "clientes" 
 
 urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('clientes_app/', include('clientes_app.urls')),
+    path("", views.index, name="clientes_home"),
     path("", views.index, name="index"),                         # Página principal
     path("sistema/", views.SistemaUnificadoView.as_view(), name="sistema"),
     path("listar/", views.listar_clientes, name="listar"),       # Función simple

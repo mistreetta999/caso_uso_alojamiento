@@ -1,0 +1,6 @@
+<script src="{% static 'js/main.js' %}"></script>
+{% extends "base.html" %}
+{% block content %}
+<h1>Bienvenido al sistema de alojamientos</h1>
+<a href="{% url 'alojamientos_list' %}">Ver alojamientos</a>
+{% endblock %}

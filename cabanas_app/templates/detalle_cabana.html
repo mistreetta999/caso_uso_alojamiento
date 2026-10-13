@@ -1,0 +1,5 @@
+<h2>Detalle de la Cabaña</h2>
+<p>Nombre: {{ cabana.nombre }}</p>
+<p>Ubicación: {{ cabana.ubicacion }}</p>
+<p>Precio: {{ cabana.precio }}</p>
+<a href="{% url 'editar_cabana' cabana.id %}">Editar</a>
