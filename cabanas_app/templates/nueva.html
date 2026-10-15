@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Nueva Cabaña{% endblock %}
+{% block content %}
+<h2 class="mb-4">Registrar Cabaña</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required>
+    </div>
+    <div class="mb-3">
+        <label for="capacidad" class="form-label">Capacidad</label>
+        <input type="number" class="form-control" id="capacidad" name="capacidad" required>
+    </div>
+    <div class="mb-3">
+        <label for="precio" class="form-label">Precio por noche</label>
+        <input type="number" class="form-control" id="precio" name="precio" required>
+    </div>
+    <button type="submit" class="btn btn-success">Guardar</button>
+</form>
+{% endblock %}

@@ -9,7 +9,8 @@ REM Migraciones
 python manage.py migrate
 
 REM Levantar servidor Django en segundo plano
-start "" python manage.py runserver
+start "" python manage.py runserver 0.0.0.0:8000
+
 
 REM Abrir navegador en la URL del servidor
 start "" http://127.0.0.1:8000/

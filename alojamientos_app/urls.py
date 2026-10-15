@@ -6,7 +6,7 @@ from django.shortcuts import render
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from alojamientos_app.views import AlojamientoViewSet, InicioView, SistemaUnificadoView
+from alojamientos_app.views import AlojamientoViewSet, InicioView, SistemaUnificadoView, crear_alojamiento
 from cabanas_app.views import CabanaViewSet
 from clientes_app.views import ClienteViewSet
 from reservas_app.views import ReservaViewSet
@@ -20,11 +20,11 @@ router.register(r"clientes", ClienteViewSet)
 router.register(r"cabanas", CabanaViewSet)
 router.register(r"reservas", ReservaViewSet)
 router.register(r"alojamientos", AlojamientoViewSet)
-
+app_name = "alojamientos"
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
-
+     path("alojamientos/nuevo/", crear_alojamiento, name="crear_alojamiento"),
     # Dashboard principal
     path("", dashboard, name="dashboard"),
     path("inicio/", InicioView.as_view(), name="inicio"),

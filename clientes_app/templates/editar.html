@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Editar Cliente{% endblock %}
+{% block content %}
+<h2 class="mb-4">Editar Cliente</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" value="{{ cliente.nombre }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" value="{{ cliente.email }}" required>
+    </div>
+    <button type="submit" class="btn btn-success">Actualizar</button>
+    <a href="{% url 'clientes:index' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

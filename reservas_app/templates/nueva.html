@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Nueva Reserva{% endblock %}
+{% block content %}
+<h2 class="mb-4">Registrar Reserva</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="cliente" class="form-label">Cliente</label>
+        <select class="form-select" id="cliente" name="cliente" required>
+            {% for cliente in clientes %}
+            <option value="{{ cliente.id }}">{{ cliente.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="cabana" class="form-label">Cabaña</label>
+        <select class="form-select" id="cabana" name="cabana" required>
+            {% for cabana in cabanas %}
+            <option value="{{ cabana.id }}">{{ cabana.nombre }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="fecha_inicio" class="form-label">Fecha Inicio</label>
+        <input type="date" class="form-control" id="fecha_inicio" name="fecha_inicio" required>
+    </div>
+    <div class="mb-3">
+        <label for="fecha_fin" class="form-label">Fecha Fin</label>
+        <input type="date" class="form-control" id="fecha_fin" name="fecha_fin" required>
+    </div>
+    <button type="submit" class="btn btn-success">Guardar</button>
+</form>
+{% endblock %}

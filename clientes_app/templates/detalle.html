@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Detalle Cliente{% endblock %}
+{% block content %}
+<h2 class="mb-4">Detalle de Cliente</h2>
+<ul class="list-group">
+    <li class="list-group-item"><strong>Nombre:</strong> {{ cliente.nombre }}</li>
+    <li class="list-group-item"><strong>Email:</strong> {{ cliente.email }}</li>
+</ul>
+<a href="{% url 'clientes:editar' cliente.id %}" class="btn btn-warning mt-3">Editar</a>
+<a href="{% url 'clientes:index' %}" class="btn btn-secondary mt-3">Volver</a>
+{% endblock %}

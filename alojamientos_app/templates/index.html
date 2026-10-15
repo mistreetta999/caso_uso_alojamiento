@@ -1,6 +1,24 @@
-<script src="{% static 'js/main.js' %}"></script>
 {% extends "base.html" %}
+{% block title %}Alojamientos{% endblock %}
 {% block content %}
-<h1>Bienvenido al sistema de alojamientos</h1>
-<a href="{% url 'alojamientos_list' %}">Ver alojamientos</a>
+<h2 class="mb-4">Listado de Alojamientos</h2>
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Capacidad Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for alojamiento in alojamientos %}
+        <tr>
+            <td>{{ alojamiento.nombre }}</td>
+            <td>{{ alojamiento.capacidad_total }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="2">No hay alojamientos registrados.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'alojamientos:nuevo' %}" class="btn btn-primary">Agregar Alojamiento</a>
 {% endblock %}

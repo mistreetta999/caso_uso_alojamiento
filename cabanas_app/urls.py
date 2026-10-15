@@ -1,7 +1,14 @@
 from django.urls import path
 from .views import IndexView, CabanaListView, CabanaDetailView, CabanaCreateView, CabanaUpdateView
 
+from . import views
+
+app_name = "cabanas"
 urlpatterns = [
+     path("", views.index, name="index"),
+    path("nueva/", views.nueva, name="nueva"),
+    path("<int:cabana_id>/", views.detalle, name="detalle"),
+    path("<int:cabana_id>/editar/", views.editar, name="editar"),
     path("", IndexView.as_view(), name="index"),
     path("listar/", CabanaListView.as_view(), name="listar_cabanas"),
     path("<int:pk>/", CabanaDetailView.as_view(), name="detalle_cabana"),

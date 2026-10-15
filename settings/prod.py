@@ -1,7 +1,9 @@
 import os
 from pathlib import Path
 from .base import *
-DEBUG = False
+DEBUG = True
+
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATABASES = {

@@ -1,0 +1,62 @@
+[
+  {
+    "model": "alojamientos_app.alojamiento",
+    "pk": 1,
+    "fields": {
+      "nombre": "Cabañas Espindola",
+      "ubicacion": "Mina Clavero",
+      "precio_por_noche": "1500.00",
+      "capacidad": 50,
+      "descripcion": "Complejo de alojamientos en Mina Clavero"
+    }
+  },
+  {
+    "model": "cabanas_app.cabana",
+    "pk": 1,
+    "fields": {
+      "nombre": "Cabañas Espindola",
+      "ubicacion": "Mina Clavero",
+      "precio_por_noche": "1200.00",
+      "capacidad": 4,
+      "descripcion": "Cabaña estándar"
+    }
+  },
+  {
+    "model": "clientes_app.cliente",
+    "pk": 1,
+    "fields": {
+      "nombre": "Carolina",
+      "email": "carolina@example.com",
+      "telefono": "3511234567"
+    }
+  },
+  {
+    "model": "clientes_app.cliente",
+    "pk": 2,
+    "fields": {
+      "nombre": "Juan Pérez",
+      "email": "juanp@example.com",
+      "telefono": "3517654321"
+    }
+  },
+  {
+    "model": "reservas_app.reserva",
+    "pk": 1,
+    "fields": {
+      "cliente": 1,
+      "alojamiento": 1,
+      "fecha_inicio": "2026-10-15",
+      "fecha_fin": "2026-10-20"
+    }
+  },
+  {
+    "model": "reservas_app.reserva",
+    "pk": 2,
+    "fields": {
+      "cliente": 2,
+      "alojamiento": 1,
+      "fecha_inicio": "2026-11-01",
+      "fecha_fin": "2026-11-05"
+    }
+  }
+]

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Nuevo Alojamiento{% endblock %}
+{% block content %}
+<h2 class="mb-4">Registrar Alojamiento</h2>
+<form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" required>
+    </div>
+    <div class="mb-3">
+        <label for="capacidad_total" class="form-label">Capacidad Total</label>
+        <input type="number" class="form-control" id="capacidad_total" name="capacidad_total" required>
+    </div>
+    <button type="submit" class="btn btn-success">Guardar</button>
+</form>
+{% endblock %}

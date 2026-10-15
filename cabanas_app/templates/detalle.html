@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Detalle Cabaña{% endblock %}
+{% block content %}
+<h2 class="mb-4">Detalle de Cabaña</h2>
+<ul class="list-group">
+    <li class="list-group-item"><strong>Nombre:</strong> {{ cabana.nombre }}</li>
+    <li class="list-group-item"><strong>Capacidad:</strong> {{ cabana.capacidad }}</li>
+    <li class="list-group-item"><strong>Precio por noche:</strong> ${{ cabana.precio }}</li>
+</ul>
+<a href="{% url 'cabanas:editar' cabana.id %}" class="btn btn-warning mt-3">Editar</a>
+<a href="{% url 'cabanas:index' %}" class="btn btn-secondary mt-3">Volver</a>
+{% endblock %}

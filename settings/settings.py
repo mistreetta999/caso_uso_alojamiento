@@ -4,9 +4,11 @@ from dotenv import load_dotenv
 
 # Base directory del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
-# Ruta absoluta explícita para asegurar que lo lea
+
+# Ruta absoluta explícita para asegurar que cargue el .env correcto
 env_path = BASE_DIR / ".env"
-load_dotenv(dotenv_path=env_path)
+load_dotenv(env_path)
+
 print("Cargando settings desde:", __file__)
 print("BASE_DIR:", BASE_DIR)
 
@@ -14,21 +16,15 @@ print("BASE_DIR:", BASE_DIR)
 SECRET_KEY = os.getenv("SECRET_KEY", "superseguro")
 DEBUG = os.getenv("DEBUG", "True") == "True"
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
+# settings.py
 
-ROOT_URLCONF = "sistema_alojamientos.urls"
-WSGI_APPLICATION = "sistema_alojamientos.wsgi.application"
-
-# Configuración de base de datos (Postgres)
 DATABASES = {
-    "default": {
-        "ENGINE": os.getenv("DB_ENGINE", "django.db.backends.postgresql"),
-        "NAME": os.getenv("DB_NAME", "sistema_alojamientos"),
-        "USER": os.getenv("DB_USER", "carolinam"),
-        "PASSWORD": os.getenv("DB_PASSWORD", "superseguro"),
-        "HOST": os.getenv("DB_HOST", "127.0.0.1"),
-        "PORT": os.getenv("DB_PORT", "5432"),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Configuración de apps
 INSTALLED_APPS = [
@@ -40,33 +36,28 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',   # ⚡ necesario
-
-
+    
     'sistema_alojamientos.clientes',
     'sistema_alojamientos.reservas',
     'sistema_alojamientos.cabanas',
     'sistema_alojamientos.alojamientos',
 
+    'alojamientos_app',
     'clientes_app',
-        
     'reservas_app',
     'cabanas_app',
-    'alojamientos_app',
 ]
 
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # ✅ agregado aquí
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
-
-ROOT_URLCONF = 'sistema_alojamientos.urls'
-WSGI_APPLICATION = 'sistema_alojamientos.wsgi.application'
 
 TEMPLATES = [
     {

@@ -14,6 +14,18 @@ from reservas_app.serializers import ReservaSerializer
 from cabanas_app.models import Cabana
 from reservas_app.models import Reserva
 from cabanas_app.models import Cabana
+from django.shortcuts import render, redirect
+from .forms import AlojamientoForm
+
+def crear_alojamiento(request):
+    if request.method == "POST":
+        form = AlojamientoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("index")  # redirige a tu vista principal
+    else:
+        form = AlojamientoForm()
+    return render(request, "crear_alojamiento.html", {"form": form})
 
 
 def index(request):

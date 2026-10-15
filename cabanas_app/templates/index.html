@@ -1,20 +1,26 @@
-<!DOCTYPE html>
-    <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Gestión de Cabañas</title>
-    </head>
-    <body>
-        <h1>Bienvenido al sistema de alojamientos</h1>
-        <p>Esta es la página principal de la aplicación de cabañas.</p>
-    
-        <nav>
-            <ul>
-                <li><a href="{% url 'listar_cabanas' %}">Listar Cabañas</a></li>
-                <li><a href="{% url 'crear_cabana' %}">Crear Cabaña</a></li>
-                <li><a href="{% url 'detalle_cabana' id=1 %}">Detalle Cabaña</a></li>
-            </ul>
-        </nav>
-    </body>
-    </html>
-    
+{% extends "base.html" %}
+{% block title %}Cabañas{% endblock %}
+{% block content %}
+<h2 class="mb-4">Listado de Cabañas</h2>
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Nombre</th>
+            <th>Capacidad</th>
+            <th>Precio por noche</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cabana in cabanas %}
+        <tr>
+            <td>{{ cabana.nombre }}</td>
+            <td>{{ cabana.capacidad }}</td>
+            <td>${{ cabana.precio }}</td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="3">No hay cabañas registradas.</td></tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'cabanas:nueva' %}" class="btn btn-primary">Agregar Cabaña</a>
+{% endblock %}
