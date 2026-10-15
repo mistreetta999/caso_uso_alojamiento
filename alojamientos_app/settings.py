@@ -11,11 +11,11 @@ load_dotenv(env_path)
 
 print("Cargando settings desde:", __file__)
 print("BASE_DIR:", BASE_DIR)
-ALLOWED_HOSTS = os.getenv(
-    "ALLOWED_HOSTS",
-    "alojamientos-304a507fd67b.herokuapp.com,localhost"
-).split(",")
-
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'alojamientos-304a507fd67b.herokuapp.com'
+]
 
 
 
