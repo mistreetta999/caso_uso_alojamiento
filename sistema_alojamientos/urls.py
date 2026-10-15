@@ -3,7 +3,8 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from cabanas_app.views import (
     IndexView, CabanaListView, CabanaDetailView,
-    CabanaCreateView, CabanaUpdateView, CabanaViewSet
+    CabanaCreateView, CabanaUpdateView, CabanaViewSet,
+    home
 )
 
 # Router para la API REST
@@ -12,7 +13,7 @@ router.register(r'api/cabanas', CabanaViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-
+    path("", home, name="home"),
     # Vistas HTML
     path("cabanas/", CabanaListView.as_view(), name="listar_cabanas"),
     path("cabanas/<int:pk>/", CabanaDetailView.as_view(), name="detalle_cabana"),

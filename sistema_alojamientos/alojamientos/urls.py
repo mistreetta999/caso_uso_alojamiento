@@ -17,6 +17,7 @@ router.register(r"cabanas", CabanaViewSet)
 router.register(r"reservas", ReservaViewSet)
 
 urlpatterns = [
+     path("", views.home, name="home"),
     path("api/", include(router.urls)),
     path("admin/", admin.site.urls),
     # Funciones simples

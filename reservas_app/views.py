@@ -4,6 +4,10 @@ from .models import Reserva
 from .serializers import ReservaSerializer
 from django.shortcuts import render, redirect
 from .forms import ReservaForm
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Bienvenido a Alojamientos 🚀")
 
 def crear_reserva(request):
     if request.method == "POST":

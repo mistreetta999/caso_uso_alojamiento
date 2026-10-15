@@ -6,6 +6,10 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from .models import Cabana
 from .forms import CabanaForm
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Bienvenido a Alojamientos 🚀")
 
 def index(request):
     cabanas = Cabana.objects.all()

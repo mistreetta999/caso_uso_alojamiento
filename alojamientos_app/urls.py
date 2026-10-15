@@ -2,6 +2,7 @@
 URLs del módulo de sistema_alojamientos.
 """
 from django.shortcuts import render
+from alojamientos_app import views
 
 from django.contrib import admin
 from django.urls import path, include
@@ -23,6 +24,7 @@ router.register(r"alojamientos", AlojamientoViewSet)
 
 app_name = "alojamientos"
 urlpatterns = [
+    path("", views.home, name="home"),
     path("admin/", admin.site.urls),
     path("api/", include(router.urls)),
      path("alojamientos/nuevo/", crear_alojamiento, name="crear_alojamiento"),

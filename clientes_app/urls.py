@@ -1,5 +1,6 @@
 """URLs for the clientes_app."""
-from django.urls import path
+from django.urls import include, path
+from . import views
 from django.urls import include
 from rest_framework.routers import DefaultRouter
 from reservas_app.views import ReservaViewSet
@@ -14,6 +15,7 @@ router.register(r'alojamientos', AlojamientoViewSet)
 
 
 urlpatterns = [
+    path("", views.home, name="home"),
     path('', include(router.urls)),
     path('cliente_reservas/', include(router.urls)),
     path('cliente_detalles/', include(router.urls)),

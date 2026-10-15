@@ -7,6 +7,7 @@ from django.urls import include
 app_name = "clientes" 
 
 urlpatterns = [
+    path("", views.home, name="home"),
     path('admin/', admin.site.urls),
     path('clientes_app/', include('clientes_app.urls')),
     path("", views.index, name="clientes_home"),

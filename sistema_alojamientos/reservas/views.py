@@ -7,6 +7,10 @@ from django.urls import reverse_lazy
 from .models import Reserva
 
 from django.views import View
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Bienvenido a Alojamientos 🚀")
 
 class SistemaUnificadoView(View):
     def get(self, request):

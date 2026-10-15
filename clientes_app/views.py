@@ -3,6 +3,10 @@ from .models import Cliente
 from .serializers import ClienteSerializer
 from django.shortcuts import render, redirect
 from .forms import ClienteForm
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Bienvenido a Alojamientos 🚀")
 
 def crear_cliente(request):
     if request.method == "POST":

@@ -6,6 +6,10 @@ from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, ListView
 from django.views import View
 from .models import Cliente
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Bienvenido a Alojamientos 🚀")
 
 def index(request): # pylint: disable=unused-argument
     return HttpResponse("Clientes funcionando")

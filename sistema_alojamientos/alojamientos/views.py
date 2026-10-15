@@ -8,6 +8,10 @@ from rest_framework import viewsets
 from .models import Alojamiento, Cliente, Cabana, Reserva
 from .serializers import AlojamientoSerializer, ClienteSerializer, CabanaSerializer, ReservaSerializer      # asegurate de tenerlo
 
+from django.http import HttpResponse
+
+def home(request):
+    return HttpResponse("Bienvenido a Alojamientos 🚀")
 
 def index(request):
     return HttpResponse("Alojamientos")

@@ -7,6 +7,7 @@ app_name = "reservas"  # pylint: disable=invalid-name
 
 urlpatterns = [
     # Funciones simples
+     path("", views.home, name="home"),
     path("", views.index, name="index"),
     path("lista/", views.lista_reservas, name="lista"),
     path("sistema/", views.SistemaUnificadoView.as_view(), name="sistema_unificado"),
