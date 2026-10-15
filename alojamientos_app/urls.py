@@ -20,6 +20,7 @@ router.register(r"clientes", ClienteViewSet)
 router.register(r"cabanas", CabanaViewSet)
 router.register(r"reservas", ReservaViewSet)
 router.register(r"alojamientos", AlojamientoViewSet)
+
 app_name = "alojamientos"
 urlpatterns = [
     path("admin/", admin.site.urls),

@@ -13,11 +13,13 @@ print("Cargando settings desde:", __file__)
 print("BASE_DIR:", BASE_DIR)
 
 # Seguridad
+ROOT_URLCONF = "sistema_alojamientos.urls"
+
+
 SECRET_KEY = os.getenv("SECRET_KEY", "superseguro")
 DEBUG = os.getenv("DEBUG", "True") == "True"
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-# settings.py
-# settings.py
+
 
 DATABASES = {
     'default': {
