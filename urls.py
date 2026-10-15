@@ -12,6 +12,13 @@ urlpatterns = [
 
     # ⚡ Redirigir raíz directamente a reservas (podés cambiarlo a clientes o cabañas)
     path("", RedirectView.as_view(url="/reservas/", permanent=False)),
+    # apps externas
+    path("rest-framework/", include("rest_framework.urls")),
+     path("admin/", admin.site.urls),
+    path("reservas/", include("reservas_app.urls")),
+    path("cabanas/", include("cabanas_app.urls")),
+    path("clientes/", include("clientes_app.urls")),
+    path("", include("reservas_app.urls")),  # raíz abre reservas
 
     # Apps internas
     path("cabanas/", include("sistema_alojamientos.cabanas.urls")),
@@ -20,7 +27,10 @@ urlpatterns = [
     path("reservas/", include("sistema_alojamientos.reservas.urls")),
 
     # App externa
-    path("alojamientos-apps/", include("alojamientos_apps.urls")),
+    path("alojamientos-apps/", include("alojamientos_app.urls")),
+    path("clientes-apps/", include("clientes_app.urls")),
+    path("reservas-apps/", include("reservas_app.urls")),
+    path("cabanas-apps/", include("cabanas_app.urls")),
 ]
 
 # Archivos estáticos y media
