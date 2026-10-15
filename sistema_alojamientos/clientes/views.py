@@ -8,7 +8,7 @@ from django.views import View
 from .models import Cliente
 from django.http import HttpResponse
 
-#def index(request): # pylint: disable=unused-argument
+def index(request): # pylint: disable=unused-argument
     return HttpResponse("Clientes funcionando")
 
 

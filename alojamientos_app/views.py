@@ -16,7 +16,8 @@ from reservas_app.models import Reserva
 from cabanas_app.models import Cabana
 from django.shortcuts import render, redirect
 from .forms import AlojamientoForm
-
+def index(request):
+    return HttpResponse("Alojamientos")
 
 def crear_alojamiento(request):
     if request.method == "POST":

@@ -9,8 +9,8 @@ from .models import Reserva
 from django.views import View
 from django.http import HttpResponse
 
-#class SistemaUnificadoView(View):
-    def get(self, request):
+
+def get(self, request):
         # lógica
         return HttpResponse("Sistema Unificado")
 

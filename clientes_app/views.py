@@ -4,8 +4,10 @@ from .serializers import ClienteSerializer
 from django.shortcuts import render, redirect
 from .forms import ClienteForm
 from django.http import HttpResponse
-
+def index(request):
+    return HttpResponse("Alojamientos")
 #def crear_cliente(request):
+def crear_cliente(request):
     if request.method == "POST":
         form = ClienteForm(request.POST)
         if form.is_valid():

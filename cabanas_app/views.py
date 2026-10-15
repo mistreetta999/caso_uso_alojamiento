@@ -1,16 +1,14 @@
 # Vistas HTML (Class-Based Views)
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
 from django.shortcuts import render, redirect
+from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 
 from django.urls import reverse_lazy
 from .models import Cabana
 from .forms import CabanaForm
-from django.http import HttpResponse
-
-#def index(request):
-    cabanas = Cabana.objects.all()
-    return render(request, "cabanas/index.html", {"cabanas": cabanas})
+def index(request):
+    return HttpResponse("Alojamientos")
 
 def nueva(request):
     if request.method == "POST":

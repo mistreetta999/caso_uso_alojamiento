@@ -7,6 +7,7 @@ from reservas_app.views import ReservaViewSet
 from cabanas_app.views import CabanaViewSet
 from alojamientos_app.views import AlojamientoViewSet
 from .views import ClienteViewSet
+from django.http import HttpResponse
 router = DefaultRouter()
 router.register(r'clientes', ClienteViewSet)
 router.register(r'reservas', ReservaViewSet)

@@ -5,8 +5,9 @@ from .serializers import ReservaSerializer
 from django.shortcuts import render, redirect
 from .forms import ReservaForm
 from django.http import HttpResponse
-
-#def crear_reserva(request):
+def index(request):
+    return HttpResponse("Alojamientos")
+def crear_reserva(request):
     if request.method == "POST":
         form = ReservaForm(request.POST)
         if form.is_valid():
@@ -16,9 +17,7 @@ from django.http import HttpResponse
         form = ReservaForm()
     return render(request, "crear_reserva.html", {"form": form})
 
-def index(request):
-    return HttpResponse("¡Bienvenido al sistema de alojamientos!")
-class ReservaViewSet(viewsets.ModelViewSet):
+
     queryset = Reserva.objects.all()
     serializer_class = ReservaSerializer
 class ClienteReservaViewSet(viewsets.ModelViewSet):
