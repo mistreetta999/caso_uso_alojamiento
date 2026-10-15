@@ -17,8 +17,6 @@ from cabanas_app.models import Cabana
 from django.shortcuts import render, redirect
 from .forms import AlojamientoForm
 
-def home(request):
-    return HttpResponse("Bienvenido a Alojamientos 🚀")
 
 def crear_alojamiento(request):
     if request.method == "POST":

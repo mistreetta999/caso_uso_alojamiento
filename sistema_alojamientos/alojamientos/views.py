@@ -10,10 +10,7 @@ from .serializers import AlojamientoSerializer, ClienteSerializer, CabanaSeriali
 
 from django.http import HttpResponse
 
-def home(request):
-    return HttpResponse("Bienvenido a Alojamientos 🚀")
-
-def index(request):
+#def index(request):
     return HttpResponse("Alojamientos")
 
 def lista_alojamientos(request):

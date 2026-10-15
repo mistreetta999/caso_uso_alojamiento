@@ -6,10 +6,7 @@ from .models import Cabana
 from sistema_alojamientos.alojamientos.models import Alojamiento
 from django.http import HttpResponse
 
-def home(request):
-    return HttpResponse("Bienvenido a Alojamientos 🚀")
-
-def cabanas(request):
+#def cabanas(request):
     return HttpResponse("Bienvenida a las cabanas")
 def index(request):
     return HttpResponse("Bienvenida cabanas")

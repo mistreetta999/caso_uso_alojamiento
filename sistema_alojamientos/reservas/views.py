@@ -9,10 +9,7 @@ from .models import Reserva
 from django.views import View
 from django.http import HttpResponse
 
-def home(request):
-    return HttpResponse("Bienvenido a Alojamientos 🚀")
-
-class SistemaUnificadoView(View):
+#class SistemaUnificadoView(View):
     def get(self, request):
         # lógica
         return HttpResponse("Sistema Unificado")

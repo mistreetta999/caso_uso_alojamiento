@@ -3,10 +3,7 @@ from django.views import View
 from django.http import HttpResponse
 from django.http import HttpResponse
 
-def home(request):
-    return HttpResponse("Bienvenido a Alojamientos 🚀")
-
-
+#
 class InicioView(View):
     """Vista de inicio del sistema."""
     def get(self, request):

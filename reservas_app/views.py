@@ -6,10 +6,7 @@ from django.shortcuts import render, redirect
 from .forms import ReservaForm
 from django.http import HttpResponse
 
-def home(request):
-    return HttpResponse("Bienvenido a Alojamientos 🚀")
-
-def crear_reserva(request):
+#def crear_reserva(request):
     if request.method == "POST":
         form = ReservaForm(request.POST)
         if form.is_valid():
