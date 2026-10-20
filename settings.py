@@ -1,7 +1,14 @@
 import os
+from importlib import import_module
 from pathlib import Path
 from dotenv import load_dotenv
-import dj_database_url  # <-- Nueva librería para leer URLs de bases de datos
+from django.core.exceptions import ImproperlyConfigured
+
+try:
+    dj_database_url = import_module("dj_database_url")
+except ModuleNotFoundError:
+    dj_database_url = None
+
 # Base directory del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -11,24 +18,44 @@ load_dotenv(env_path)
 
 print("Cargando settings desde:", __file__)
 print("BASE_DIR:", BASE_DIR)
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost,alojamientos-304a507fd67b.herokuapp.com").split(",")
 
-
-# Seguridad
-ROOT_URLCONF = "sistema_alojamientos.urls"
+# Seguridad y Secretos
 SECRET_KEY = os.getenv("SECRET_KEY", "superseguro")
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost,alojamientos-304a507fd67b.herokuapp.com").split(",")
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-        conn_max_age=600
+ROOT_URLCONF = "sistema_alojamientos.urls"
+
+# Configuración de Base de Datos
+if dj_database_url is not None:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+            conn_max_age=600
+        )
+    }
+elif os.getenv("DATABASE_URL"):
+    raise ImproperlyConfigured(
+        "DATABASE_URL is set, but dj-database-url is not installed. Install it to configure the database."
     )
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+# Configuración de REST Framework (Aquí faltaba la coma en tu versión anterior)
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ],
 }
 
 # Configuración de apps
@@ -42,26 +69,17 @@ INSTALLED_APPS = [
     "django_extensions", 
     'rest_framework',   
     'django_filters',
-    'sistema_alojamientos.clientes',  # cspell:ignore clientes
-    'sistema_alojamientos.reservas',  # cspell:ignore reservas
+    
+    'sistema_alojamientos.clientes',
+    'sistema_alojamientos.reservas',
     'sistema_alojamientos.cabanas',
-    'sistema_alojamientos.alojamientos',  # cspell:ignore alojamientos
+    'sistema_alojamientos.alojamientos',
 
     'alojamientos_app',
     'clientes_app',
     'reservas_app',
     'cabanas_app',
 ]
-REST_FRAMEWORK = {
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.AllowAny",
-    ],
-    "DEFAULT_RENDERER_CLASSES": [
-        "rest_framework.renderers.JSONRenderer",
-        "rest_framework.renderers.BrowsableAPIRenderer",
-    ],
-}
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -77,8 +95,8 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        "DIRS": [BASE_DIR / "templates", BASE_DIR / "sistema_alojamientos" / "templates"],
-
+        'DIRS': [BASE_DIR / "templates", BASE_DIR / "sistema_alojamientos" / "templates"],
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -102,6 +120,7 @@ TIME_ZONE = 'America/Argentina/Cordoba'
 USE_I18N = True
 USE_TZ = True
 
+# Archivos Estáticos y Multimedia
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
@@ -110,48 +129,3 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-TEMPLATES = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-            ],
-        },
-    },
-]
-TEMPLATES = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-            ],
-        },
-    },
-]
-TEMPLATES = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, "templates")],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "context_processors": [
-                "django.template.context_processors.debug",
-                "django.template.context_processors.request",
-                "django.contrib.auth.context_processors.auth",
-                "django.contrib.messages.context_processors.messages",
-            ],
-        },
-    },
-]

@@ -15,7 +15,7 @@
                 [gettext_noop("6 a.m."), 6],
                 [gettext_noop("Noon"), 12],
                 [gettext_noop("6 p.m."), 18],
-            ],
+           #
         },
         dismissClockFunc: [],
         dismissCalendarFunc: [],

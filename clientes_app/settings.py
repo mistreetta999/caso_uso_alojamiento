@@ -1,7 +1,8 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-import dj_database_url  # <-- Nueva librería para leer URLs de bases de datos
+import dj_database_url
+
 # Base directory del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -11,23 +12,16 @@ load_dotenv(env_path)
 
 print("Cargando settings desde:", __file__)
 print("BASE_DIR:", BASE_DIR)
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost,alojamientos-304a507fd67b.herokuapp.com").split(",")
 
-
-
-
-# Seguridad
-ROOT_URLCONF = "sistema_alojamientos.urls"
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [BASE_DIR / "static"]
-STATIC_ROOT = BASE_DIR / "staticfiles"
-
-
+# Seguridad y Secretos
 SECRET_KEY = os.getenv("SECRET_KEY", "superseguro")
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
-# settings.py
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost,alojamientos-304a507fd67b.herokuapp.com").split(",")
+
+ROOT_URLCONF = "sistema_alojamientos.urls"
+
+# Configuración de Base de Datos
 DATABASES = {
     'default': dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
@@ -35,6 +29,7 @@ DATABASES = {
     )
 }
 
+# Configuración de REST Framework (Aquí faltaba la coma en tu versión anterior)
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.AllowAny",
@@ -44,7 +39,6 @@ REST_FRAMEWORK = {
         "rest_framework.renderers.BrowsableAPIRenderer",
     ],
 }
-
 
 # Configuración de apps
 INSTALLED_APPS = [
@@ -56,7 +50,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "django_extensions", 
     'rest_framework',   
-    'django_filters', # ⚡ necesario
+    'django_filters',
     
     'sistema_alojamientos.clientes',
     'sistema_alojamientos.reservas',
@@ -70,7 +64,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
- "django.middleware.security.SecurityMiddleware",
+    "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware", 
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -83,8 +77,8 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-              "DIRS": [BASE_DIR / "templates", BASE_DIR / "sistema_alojamientos" / "templates"],
-
+        'DIRS': [BASE_DIR / "templates", BASE_DIR / "sistema_alojamientos" / "templates"],
+        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
@@ -108,6 +102,7 @@ TIME_ZONE = 'America/Argentina/Cordoba'
 USE_I18N = True
 USE_TZ = True
 
+# Archivos Estáticos y Multimedia
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'

@@ -4,7 +4,7 @@ $projectPath = "C:\Users\carol\OneDrive\Desktop\sistema_alojamientos"
 Write-Host "🔎 Listado de vistas y rutas Django en $projectPath"
 
 # Activar entorno virtual
-& "$projectPath\venv312\Scripts\Activate.ps1"
+& "$projectPath\venv\Scripts\Activate.ps1"
 
 # 1. Mostrar todas las rutas registradas en el proyecto
 Write-Host "`n[1] Rutas registradas en urls.py:"

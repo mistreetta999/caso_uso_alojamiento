@@ -20,7 +20,7 @@ depends on core.js for utility functions like removeChildren or quickElement
             gettext("October"),
             gettext("November"),
             gettext("December"),
-        ],
+       #
         monthsOfYearAbbrev: [
             pgettext("abbrev. month January", "Jan"),
             pgettext("abbrev. month February", "Feb"),
@@ -34,7 +34,7 @@ depends on core.js for utility functions like removeChildren or quickElement
             pgettext("abbrev. month October", "Oct"),
             pgettext("abbrev. month November", "Nov"),
             pgettext("abbrev. month December", "Dec"),
-        ],
+       #
         daysOfWeek: [
             gettext("Sunday"),
             gettext("Monday"),
@@ -43,7 +43,7 @@ depends on core.js for utility functions like removeChildren or quickElement
             gettext("Thursday"),
             gettext("Friday"),
             gettext("Saturday"),
-        ],
+       #
         daysOfWeekAbbrev: [
             pgettext("abbrev. day Sunday", "Sun"),
             pgettext("abbrev. day Monday", "Mon"),
@@ -52,7 +52,7 @@ depends on core.js for utility functions like removeChildren or quickElement
             pgettext("abbrev. day Thursday", "Thur"),
             pgettext("abbrev. day Friday", "Fri"),
             pgettext("abbrev. day Saturday", "Sat"),
-        ],
+       #
         daysOfWeekInitial: [
             pgettext("one letter Sunday", "S"),
             pgettext("one letter Monday", "M"),
@@ -61,7 +61,7 @@ depends on core.js for utility functions like removeChildren or quickElement
             pgettext("one letter Thursday", "T"),
             pgettext("one letter Friday", "F"),
             pgettext("one letter Saturday", "S"),
-        ],
+       #
         firstDayOfWeek: parseInt(get_format("FIRST_DAY_OF_WEEK")),
         isLeapYear: function (year) {
             return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
