@@ -1,5 +1,6 @@
 from django.test import TestCase
-from .models import Reserva
+from reservas_app.models import Reserva
+
 
 class ReservaTestCase(TestCase):
     def setUp(self):

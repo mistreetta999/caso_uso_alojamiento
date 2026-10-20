@@ -1,48 +1,35 @@
-"""
-URLs del módulo de sistema_alojamientos.
-"""
-from django.shortcuts import render
-from alojamientos_app import views
-
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from alojamientos_app.views import AlojamientoViewSet, InicioView, SistemaUnificadoView, crear_alojamiento
-from cabanas_app.views import CabanaViewSet
-from clientes_app.views import ClienteViewSet
-from reservas_app.views import ReservaViewSet
 
-def dashboard(request):
-    """Renderiza la página principal del dashboard."""
-    return render(request, "dashboard.html")
+from .views import ClienteViewSet
+from . import views
+app_name = 'alojamientos'
 
 router = routers.DefaultRouter()
-router.register(r"clientes", ClienteViewSet)
-router.register(r"cabanas", CabanaViewSet)
-router.register(r"reservas", ReservaViewSet)
-router.register(r"alojamientos", AlojamientoViewSet)
-
-app_name = "alojamientos"
+router.register(r'clientes', ClienteViewSet)
 urlpatterns = [
-    path("", views.home, name="home"),
-    path("admin/", admin.site.urls),
-    path("api/", include(router.urls)),
-     path("alojamientos/nuevo/", crear_alojamiento, name="crear_alojamiento"),
-    # Dashboard principal
-    path("", dashboard, name="dashboard"),
-    path("inicio/", InicioView.as_view(), name="inicio"),
+    path('admin/', admin.site.urls),
+    path('api/', include('clientes_app.urls')),
+    # Vistas clásicas
+    path("", views.index, name="index_alojamientos"),
+    path("lista/", views.AlojamientoListView.as_view(), name="lista"),
+    
+    path('', views.lista_alojamientos, name='lista_alojamientos'),
+    path("crear/", views.crear_alojamiento, name="crear_alojamiento"),  # cspell:ignore crear
+    path("dashboard/", views.dashboard, name="dashboard_alojamientos"),
 
-    # Sistema unificado
-    path("sistema/", SistemaUnificadoView.as_view(), name="sistema_unificado"),
+    # Vistas con TemplateView
+    path("inicio/", views.InicioView.as_view(), name="inicio"),
+    path("sistema_unificado/", views.SistemaUnificadoView.as_view(), name="sistema_unificado"),
+    path("home/", views.HomeView.as_view(), name="home"),
+    path("dashboard_view/", views.DashboardView.as_view(), name="dashboard_view"),
 
-    # Apps del sistema
-    path("alojamientos/", include("alojamientos_app.urls")),
-    path("cabanas/", include("cabanas_app.urls")),
-    path("reservas/", include("reservas_app.urls")),
-    path("clientes/", include("clientes_app.urls")),
-    path("alojamientos/", include("sistema_alojamientos.alojamientos_app.urls")),
-    path("cabanas/", include("sistema_alojamientos.cabanas_app.urls")),
-    path("reservas/", include("sistema_alojamientos.reservas_app.urls")),
-    path("clientes/", include("sistema_alojamientos.clientes_app.urls")),
+    # CRUD con genéricos
+    path("list/", views.AlojamientoListView.as_view(), name="alojamiento_list"),
+    path("<int:pk>/detalle/", views.AlojamientoDetailView.as_view(), name="alojamiento_detail"),
+    path("nuevo/", views.AlojamientoCreateView.as_view(), name="alojamiento_create"),
+    path("<int:pk>/editar/", views.AlojamientoUpdateView.as_view(), name="alojamiento_update"),
+    path("<int:pk>/eliminar/", views.AlojamientoDeleteView.as_view(), name="alojamiento_delete"),
 ]
-
+urlpatterns = router.urls

@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from .models import Reserva
+from reservas_app.models import Reserva
+
 
 class ReservaSerializer(serializers.ModelSerializer):
     class Meta:

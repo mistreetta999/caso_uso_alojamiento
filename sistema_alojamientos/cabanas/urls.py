@@ -3,7 +3,6 @@ from . import views
 app_name = "cabanas"  # pylint: disable=invalid-name
 urlpatterns = [
     # Funciones simples
-     path("", views.home, name="home"),
     path("", views.lista_cabanas, name="lista_cabanas"),
     path("vistas/", views.lista_cabanas_vistas, name="lista_cabanas_vistas"),
     path("alojamientos/", views.lista_alojamientos, name="lista_alojamientos"),

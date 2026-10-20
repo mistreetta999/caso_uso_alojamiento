@@ -1,10 +1,17 @@
-{% extends "SistemaUnificado.html" %}
-{% block content %}
-<h2>Listado de Clientes</h2>
-<ul>
-    {% for cliente in clientes %}
-        <li>{{ cliente.nombre }} - {{ cliente.email }}</li>
-    {% endfor %}
-</ul>
-<a href="{% url 'clientes_create' %}">Nuevo Cliente</a>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Clientes</title>
+</head>
+<body>
+    <h1>Listado de Clientes</h1>
+    <ul>
+        {% for cliente in object_list %}
+            <li>{{ cliente }}</li>
+        {% empty %}
+            <li>No hay clientes registrados.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

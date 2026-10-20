@@ -11,7 +11,7 @@ SECRET_KEY = 'superseguro'
 
 # Modo debug (True en desarrollo, False en producción)
 SECRET_KEY = 'superseguro'
-DEBUG = True
+DEBUG = False
 
 # Hosts permitidos
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
@@ -26,8 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Librerías externas
-    'django_extensions',
-    'crispy_forms',
+    #    'crispy_forms',
     'crispy_bootstrap5',
 
     # Tus aplicaciones

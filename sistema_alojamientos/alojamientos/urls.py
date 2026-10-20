@@ -17,14 +17,13 @@ router.register(r"cabanas", CabanaViewSet)
 router.register(r"reservas", ReservaViewSet)
 
 urlpatterns = [
-     path("", views.home, name="home"),
     path("api/", include(router.urls)),
     path("admin/", admin.site.urls),
     # Funciones simples
     path("", views.lista_alojamientos, name="lista_alojamientos"),
     path("index/", views.index, name="alojamientos_index"),
     path("dashboard/", views.dashboard, name="alojamientos_dashboard"),
-
+    
     # Vistas basadas en clases
     path("inicio/", views.InicioView.as_view(), name="inicio"),
     path("sistema/", views.SistemaUnificadoView.as_view(), name="sistema_unificado"),

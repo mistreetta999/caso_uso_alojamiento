@@ -1,6 +1,6 @@
 from pathlib import Path
 from .base import *
-DEBUG = True
+DEBUG = False
 
 # Base directory del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent

@@ -1,34 +1,44 @@
 """
 Vistas para la gestión de clientes.
 """
+from django.urls import reverse_lazy
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import CreateView, DetailView, ListView
 from django.views import View
 from .models import Cliente
-from django.http import HttpResponse
+
+def respuesta_root(request):
+    return render(request, "respuesta_root.html")
+
+def sistema_unificado(request):
+    return render(request, "sistema_unificado.html")
+
+def dashboard(request):
+    return render(request, "dashboard.html")
+
+
 
 def index(request): # pylint: disable=unused-argument
     return HttpResponse("Clientes funcionando")
 
-
-class SistemaUnificadoView(View):
-    """Vista que representa el sistema unificado."""
-    def get(self, request):
-        # lógica
-        return HttpResponse("Sistema Unificado")
-def listar_clientes(request):
-    # lógica para listar clientes
-    return render(request, "clientes/listar.html")
-        
-
-class ClienteListView(ListView):
-    """Vista de lista que muestra todos los clientes registrados."""
+class ClienteListView (ListView):
     model = Cliente
     template_name = "clientes/lista_clientes.html"
     context_object_name = "clientes"
 
-class ClienteCreateView(CreateView):
+    def get(self, request, *args, **kwargs):
+        return HttpResponse("Lista de clientes")
+
+class SistemaUnificadoView(View):
+    def get(self, request):
+        # lógica
+        return HttpResponse("Sistema Unificado")
+def listar_clientes(request):
+    """ lista clientes"""
+    return render(request, "clientes/listar.html")
+        
+class ClienteCreateView(CreateView):  # pylint: disable=too-many-ancestors
     """Vista de creación que permite registrar un nuevo cliente."""
     model = Cliente
     template_name = "clientes/formulario_clientes.html"

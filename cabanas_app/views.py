@@ -1,80 +1,75 @@
-# Vistas HTML (Class-Based Views)
-from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView
-from django.shortcuts import render, redirect
+# Importaciones al inicio
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
-
+from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from rest_framework import viewsets
 from .models import Cabana
-from .forms import CabanaForm
+from .serializers import CabanaSerializer 
+
+def  lista_cabanas(request):
+    cabanas = Cabana.objects.all()
+    return render(request, "cabanas_app/lista.html", {"cabanas": cabanas})
+
+def respuesta_root(request):
+    return render(request, "respuesta_root.html")
+
+def sistema_unificado(request):
+    return render(request, "sistema_unificado.html")
+
 def index(request):
-    return HttpResponse("Alojamientos")
+    cabanas = Cabana.objects.all()
+    return render(request, "cabanas_app/index.html", {"cabanas": cabanas})
 
-def nueva(request):
+def detalle_cabana(request, id):
+    cabana = get_object_or_404(Cabana, pk=id)
+    return render(request, "cabanas_app/detalle.html", {"cabana": cabana})
+
+def nueva_cabana(request):
+    """ nueva cabana"""
     if request.method == "POST":
-        nombre = request.POST["nombre"]
-        capacidad = request.POST["capacidad"]
-        precio = request.POST["precio"]
-        Cabana.objects.create(nombre=nombre, capacidad=capacidad, precio=precio)
+        nombre = request.POST.get("nombre")
+        descripcion = request.POST.get("descripcion")
+        capacidad = request.POST.get("capacidad")
+        Cabana.objects.create(
+            nombre=nombre,
+            descripcion=descripcion,
+            capacidad=capacidad
+        )
         return redirect("cabanas:index")
-    return render(request, "cabanas/nueva.html")
-
-def detalle(request, cabana_id):
-    cabana = get_object_or_404(Cabana, pk=cabana_id)
-    return render(request, "cabanas/detalle.html", {"cabana": cabana})
-
-def editar(request, cabana_id):
-    cabana = get_object_or_404(Cabana, pk=cabana_id)
-    if request.method == "POST":
-        cabana.nombre = request.POST["nombre"]
-        cabana.capacidad = request.POST["capacidad"]
-        cabana.precio = request.POST["precio"]
-        cabana.save()
-        return redirect("cabanas:index")
-    return render(request, "cabanas/editar.html", {"cabana": cabana})
+    return render(request, "cabanas_app/nueva.html")
 
 
-def crear_cabana(request):
-    if request.method == "POST":
-        form = CabanaForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("index")
-    else:
-        form = CabanaForm()
-    return render(request, "crear_cabana.html", {"form": form})
-
-class IndexView(TemplateView):
-    template_name = "index.html"
 
 class CabanaListView(ListView):
     model = Cabana
-    template_name = "listar_cabanas.html"
+    template_name = "cabanas_app/lista.html"
     context_object_name = "cabanas"
 
 class CabanaDetailView(DetailView):
     model = Cabana
-    template_name = "detalle_cabana.html"
+    template_name = "cabanas_app/detalle.html"
     context_object_name = "cabana"
 
 class CabanaCreateView(CreateView):
     model = Cabana
-    form_class = CabanaForm
-    template_name = "crear_cabana.html"
-    success_url = reverse_lazy("listar_cabanas")
+    template_name = "cabanas_app/crear.html"
+    fields = ["nombre", "descripcion", "capacidad"]
 
 class CabanaUpdateView(UpdateView):
     model = Cabana
-    form_class = CabanaForm
-    template_name = "editar_cabana.html"
+    template_name = "cabanas_app/actualizar.html"
+    fields = ["nombre", "descripcion", "capacidad"]
 
-    def get_success_url(self):
-        return reverse_lazy("detalle_cabana", kwargs={"pk": self.object.pk})
+class CabanaDeleteView(DeleteView):
+    model = Cabana
+    template_name = "cabanas_app/eliminar.html"
+    success_url = "/cabanas/"
 
-
-# API REST (ViewSet con DRF)
-from rest_framework import viewsets
-from .serializers import CabanaSerializer
+# -------------------------------
+# ViewSet para API REST
+# -------------------------------
 
 class CabanaViewSet(viewsets.ModelViewSet):
     queryset = Cabana.objects.all()

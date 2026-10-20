@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-
+import dj_database_url  # <-- Nueva librería para leer URLs de bases de datos
 # Base directory del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -11,29 +11,37 @@ load_dotenv(env_path)
 
 print("Cargando settings desde:", __file__)
 print("BASE_DIR:", BASE_DIR)
-ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
-    'alojamientos-304a507fd67b.herokuapp.com'
-]
+ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost,alojamientos-304a507fd67b.herokuapp.com").split(",")
 
 
 
 # Seguridad
 ROOT_URLCONF = "sistema_alojamientos.urls"
+STATIC_URL = "/static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 SECRET_KEY = os.getenv("SECRET_KEY", "superseguro")
-DEBUG = os.getenv("DEBUG", "True") == "True"
+DEBUG = os.getenv("DEBUG", "False") == "True"
+
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost").split(",")
 
 # settings.py
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600
+    )
+}
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny",
+    ],
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.BrowsableAPIRenderer",
+    ],
 }
 
 
@@ -45,8 +53,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'rest_framework',   # ⚡ necesario
+    "django_extensions", 
+    'rest_framework',   
+    'django_filters', # ⚡ necesario
     
     'sistema_alojamientos.clientes',
     'sistema_alojamientos.reservas',
@@ -61,7 +70,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # ✅ agregado aquí
+    "whitenoise.middleware.WhiteNoiseMiddleware", 
+
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -73,8 +83,8 @@ MIDDLEWARE = [
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
-        'APP_DIRS': True,
+              "DIRS": [BASE_DIR / "templates", BASE_DIR / "sistema_alojamientos" / "templates"],
+
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',

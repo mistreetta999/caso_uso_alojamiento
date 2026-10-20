@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lista de Reservas</title>
+    </head>
+    <body>
+        <h1>Reservas</h1>
+        <table border="1">
+            <tr>
+                <th>Cliente</th>
+                <th>Cabaña</th>
+                <th>Fecha Ingreso</th>
+                <th>Fecha Salida</th>
+                <th>Observaciones</th>
+            </tr>
+            {% for reserva in reservas %}
+            <tr>
+                <td>{{ reserva.cliente }}</td>
+                <td>{{ reserva.cabana }}</td>
+                <td>{{ reserva.fecha_ingreso }}</td>
+                <td>{{ reserva.fecha_salida }}</td>
+                <td>{{ reserva.observaciones }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5">No hay reservas registradas.</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </body>
+    </html>
+    

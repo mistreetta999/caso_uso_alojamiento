@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Reserva
+from reservas_app.models import Reserva
+
 
 @admin.register(Reserva)
 class ReservaAdmin(admin.ModelAdmin):

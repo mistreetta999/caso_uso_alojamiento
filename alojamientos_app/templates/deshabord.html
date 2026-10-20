@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sistema de Alojamientos</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+        </head>
+    <body class="container mt-5">
+        <h1 class="mb-4">🏠 Panel Principal</h1>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Clientes</h5>
+                        <a href="/clientes/" class="btn btn-primary">Ver clientes</a>
+                    </div>
+                </div>
+                <nav>
+                <ul>
+                        <li><a href="{% url 'lista_alojamientos' %}">Alojamientos</a></li>
+                        <li><a href="{% url 'clientes-list' %}">Clientes</a></li>
+                        <li><a href="{% url 'cabanas-list' %}">Cabañas</a></li>
+                    </ul>
+                </nav>
+
+            <ul>
+                <li><a href="{% url 'lista_alojamientos' %}">Alojamientos</a></li>
+                <li><a href="{% url 'clientes-list' %}">Clientes</a></li>
+                <li><a href="{% url 'cabanas-list' %}">Cabañas</a></li>
+            </ul>
+                <div class="mb-4">
+                <ul>
+                <li><a href="/clientes/">Clientes</a></li>
+                <li><a href="/cabanas/">Cabañas</a></li>
+                <li><a href="/reservas/">Reservas</a></li>
+                <li><a href="/alojamientos/">Alojamientos</a></li>
+                <li><a href="/admin/">Admin</a></li>
+            </ul>
+            </div> <!-- cierre del div de la lista de enlaces -->
+                <main>
+                    <h2>Bienvenida, {{ user.username }}</h2>
+                    <p>Este es tu panel de control para gestionar alojamientos, clientes y cabañas.</p>
+            
+                    <section>
+                        <h3>Estadísticas rápidas</h3>
+                        <ul>
+                            <li>Total de alojamientos: {{ alojamientos.count }}</li>
+                            <li>Total de clientes: {{ clientes.count }}</li>
+                            <li>Total de cabañas: {{ cabanas.count }}</li>
+                        </ul>
+                    </section>
+                </main>
+                <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Reservas</h5>
+                        <a href="/reservas/" class="btn btn-primary">Ver reservas</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Cabañas</h5>
+                        <a href="/cabanas/" class="btn btn-primary">Ver cabañas</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Alojamientos</h5>
+                        <a href="/alojamientos/" class="btn btn-primary">Ver alojamientos</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+    

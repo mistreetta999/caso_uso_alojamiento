@@ -2,20 +2,15 @@
 Modelos de la aplicación de alojamientos.
 """
 from django.db import models
-
 class Cliente(models.Model):
     """Modelo que representa a un cliente."""
     nombre = models.CharField(max_length=100)
     dni = models.CharField(max_length=20, unique=True)
     email = models.EmailField(unique=True)
-    telefono = models.CharField(max_length=20, blank=True, null=True)
-    fecha_ingreso = models.DateField()
-    hora_ingreso = models.TimeField()
-    fecha_salida = models.DateField()
-    hora_salida = models.TimeField()
+    telefono = models.CharField(max_length=20, blank=True)
 
     def __str__(self):
-        return str(f"{self.nombre} ({self.dni})")
+        return f"{self.nombre} ({self.dni})"
 
 
 class Cabana(models.Model):
@@ -30,7 +25,8 @@ class Cabana(models.Model):
 
 class Alquiler(models.Model):
     """Modelo que representa un alquiler de cabaña por un cliente."""
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, related_name='reservas_cliente')
+
     cabana = models.ForeignKey(Cabana, on_delete=models.CASCADE)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()

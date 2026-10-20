@@ -1,0 +1,43 @@
+sistema_alojamientos/
+│
+├── sistema_alojamientos/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   ├── asgi.py
+│   └── ...
+│
+├── alojamientos/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── admin.py
+│   └── migrations/
+│
+├── cabanas/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── admin.py
+│   └── migrations/
+│
+├── clientes/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── admin.py
+│   └── migrations/
+│
+├── reservas/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── views.py
+│   ├── urls.py
+│   ├── admin.py
+│   └── migrations/
+│
+└── manage.py

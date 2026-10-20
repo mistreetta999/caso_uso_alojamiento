@@ -1,52 +1,74 @@
 """Vistas de la aplicación de alojamientos."""
 
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpRequest, HttpResponse
+
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from rest_framework import viewsets
-from .models import Alojamiento
-from .serializers import AlojamientoSerializer
+
 from clientes_app.models import Cliente
 from clientes_app.serializers import ClienteSerializer
 from reservas_app.models import Reserva
 from reservas_app.serializers import ReservaSerializer
-from cabanas_app.models import Cabana
-from reservas_app.models import Reserva
-from cabanas_app.models import Cabana
-from django.shortcuts import render, redirect
+
+from .models import Alojamiento
+from .serializers import AlojamientoSerializer
 from .forms import AlojamientoForm
+
+
+def respuesta_root(request):
+    return render(request, "respuesta_root.html")
+
+
+
+def sistema_unificado(request: HttpRequest) -> HttpResponse:
+    return render(request, "sistema_unificado.html")
+
+def dashboard(request: HttpRequest) -> HttpResponse:
+    return render(request, "alojamientos/dashboard.html")
+def lista_alojamientos(request: HttpRequest) -> HttpResponse:
+
+    alojamientos = Alojamiento.objects.all()
+    return render(request, "alojamientos/index.html", {"alojamientos": alojamientos})
+# --- API REST ---
+class AlojamientoViewSet(viewsets.ModelViewSet):
+    """alojamientos."""
+    queryset = Alojamiento.objects.all()
+    serializer_class = AlojamientoSerializer
+
+
+class ReservaViewSet(viewsets.ModelViewSet):
+    """API REST para reservas."""
+    queryset = Reserva.objects.select_related("cliente").all()
+    serializer_class = ReservaSerializer
+
+
+class ClienteViewSet(viewsets.ModelViewSet):
+    """API REST para clientes."""
+    queryset = Cliente.objects.all()
+    serializer_class = ClienteSerializer
+
+
+# --- Vistas clásicas ---
 def index(request):
     return HttpResponse("Alojamientos")
 
-def crear_alojamiento(request):
-    if request.method == "POST":
-        form = AlojamientoForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect("index")  # redirige a tu vista principal
-    else:
-        form = AlojamientoForm()
-    return render(request, "crear_alojamiento.html", {"form": form})
-
-
-def index(request):
-    return HttpResponse("Alojamientos")
 
 def lista_alojamientos(request):
     alojamientos = Alojamiento.objects.all()
     return render(request, "alojamientos/index.html", {"alojamientos": alojamientos})
 
 
-class ClienteViewSet(viewsets.ModelViewSet):
-    queryset = Cliente.objects.all()
-    serializer_class = ClienteSerializer
-
-
-class AlojamientoViewSet(viewsets.ModelViewSet):
-    """API REST para alojamientos."""
-    queryset = Alojamiento.objects.all()
-    serializer_class = AlojamientoSerializer
+def crear_alojamiento(request):
+    if request.method == "POST":
+        form = AlojamientoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("lista_alojamientos")
+    else:
+        form = AlojamientoForm()
+    return render(request, "alojamientos/crear_alojamiento.html", {"form": form})
 
 
 class InicioView(TemplateView):
@@ -60,10 +82,15 @@ class SistemaUnificadoView(TemplateView):
         contexto = super().get_context_data(**kwargs)
         contexto["alojamientos"] = Alojamiento.objects.all()
         return contexto
+class AlojamientoListView(TemplateView):
+    template_name = "alojamientos/lista_alojamientos.html"
+
+    def get_context_data(self, **kwargs):
+        contexto = super().get_context_data(**kwargs)
+        contexto["alojamientos"] = Alojamiento.objects.all()
+        return contexto
 
 
-def dashboard(request):
-    return render(request, "alojamientos/dashboard.html")
 
 
 class HomeView(TemplateView):
@@ -75,6 +102,7 @@ class DashboardView(TemplateView):
     template_name = "alojamientos/dashboard.html"
 
 
+# --- CRUD con genéricos ---
 class AlojamientoListView(ListView):
     model = Alojamiento
     template_name = "alojamientos/lista_alojamientos.html"

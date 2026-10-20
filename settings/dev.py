@@ -4,11 +4,11 @@
 from .base import *
 from .base import MIDDLEWARE
 import os
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 SECRET_KEY = 'superseguro'
-DEBUG = True
+DEBUG = False
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 DATABASES = {

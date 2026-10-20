@@ -1,43 +1,33 @@
-"""
-URL configuration for the sistema_alojamientos project.
-"""
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
-from django.views.generic import RedirectView
+from rest_framework.routers import DefaultRouter
+from alojamientos_app.views import AlojamientoViewSet, crear_alojamiento
+from cabanas_app.views import CabanaViewSet
+from clientes_app.views import ClienteViewSet
+from reservas_app.views import ReservaViewSet
+from .render import dashboard, inicio, sistema_unificado
+
+router = DefaultRouter()
+router.register(r"clientes", ClienteViewSet)
+router.register(r"cabanas", CabanaViewSet)
+router.register(r"reservas", ReservaViewSet)
+router.register(r"alojamientos", AlojamientoViewSet)
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/", include(router.urls)),
 
-    # ⚡ Redirigir raíz directamente a reservas (podés cambiarlo a clientes o cabañas)
-    path("", RedirectView.as_view(url="/reservas/", permanent=False)),
-    # apps externas
-    path("rest-framework/", include("rest_framework.urls")),
-     path("admin/", admin.site.urls),
-    path("reservas/", include("reservas_app.urls")),
+    # Dashboard global
+    path("", dashboard, name="dashboard"),
+    path("inicio/", inicio, name="inicio"),
+    path("sistema/", sistema_unificado, name="sistema_unificado"),
+
+    # CRUD alojamientos
+    path("alojamientos/nuevo/", crear_alojamiento, name="crear_alojamiento"),
+
+    # Apps del sistema
+    path("alojamientos/", include("alojamientos_app.urls")),
     path("cabanas/", include("cabanas_app.urls")),
+    path("reservas/", include("reservas_app.urls")),
     path("clientes/", include("clientes_app.urls")),
-    path("", include("reservas_app.urls")),  # raíz abre reservas
-
-    # Apps internas
-    path("cabanas/", include("sistema_alojamientos.cabanas.urls")),
-    path("alojamientos/", include("sistema_alojamientos.alojamientos.urls")),
-    path("clientes/", include("sistema_alojamientos.clientes.urls")),
-    path("reservas/", include("sistema_alojamientos.reservas.urls")),
-
-    # App externa
-    path("alojamientos-apps/", include("alojamientos_app.urls")),
-    path("clientes-apps/", include("clientes_app.urls")),
-    path("reservas-apps/", include("reservas_app.urls")),
-    path("cabanas-apps/", include("cabanas_app.urls")),
 ]
-
-# Archivos estáticos y media
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
-# Redirigir cualquier URL no encontrada a la página de inicio de reservas
-urlpatterns += [
-    path("", RedirectView.as_view(url="/reservas/", permanent=False)),
-]
-    

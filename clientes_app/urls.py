@@ -1,33 +1,21 @@
 """URLs for the clientes_app."""
-from django.urls import include, path
-from . import views
-from django.urls import include
+from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from reservas_app.views import ReservaViewSet
-from cabanas_app.views import CabanaViewSet
-from alojamientos_app.views import AlojamientoViewSet
 from .views import ClienteViewSet
-from django.http import HttpResponse
-router = DefaultRouter()
-router.register(r'clientes', ClienteViewSet)
-router.register(r'reservas', ReservaViewSet)
-router.register(r'cabanas', CabanaViewSet)
-router.register(r'alojamientos', AlojamientoViewSet)
+from . import views
 
+# Router exclusivo para la API de clientes
+router = DefaultRouter()
+router.register(r'', ClienteViewSet, basename='cliente-api')
+
+app_name = 'clientes'
 
 urlpatterns = [
-    path("", views.home, name="home"),
-    path('', include(router.urls)),
-    path('cliente_reservas/', include(router.urls)),
-    path('cliente_detalles/', include(router.urls)),
-    path('clientes/', include(router.urls)),
-    path('cabanas/', include(router.urls)),
-    path('alojamientos/', include(router.urls)),
-    path('reservas/', include(router.urls)),
-    path('cliente_reservas/', include(router.urls)),
-    path('cliente_detalles/', include(router.urls)),
-    path('', include(router.urls)),
-    
+    # Rutas de la API
+    path('api/', include(router.urls)),
+    # Rutas tradicionales (HTML) - Llamadas como funciones directas sin .as_view()
+    path("lista/", views.ClienteListView.as_view(), name="lista"),
+    path("create/", views.ClienteCreateView.as_view(), name="create"),
+    path("update/<int:pk>/", views.ClienteUpdateView, name="update"),
+    path("delete/<int:pk>/", views.ClienteDeleteView, name="delete"),
 ]
-
-urlpatterns += router.urls

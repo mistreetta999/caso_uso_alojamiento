@@ -5,10 +5,32 @@ from django.http import HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, UpdateView, DeleteView
 from rest_framework import viewsets
-from .models import Alojamiento, Cliente, Cabana, Reserva
 from .serializers import AlojamientoSerializer, ClienteSerializer, CabanaSerializer, ReservaSerializer      # asegurate de tenerlo
 
-from django.http import HttpResponse
+from sistema_alojamientos.alojamientos.models import Alojamiento
+from sistema_alojamientos.cabanas.models import Cabana
+from sistema_alojamientos.clientes.models import Cliente
+from sistema_alojamientos.reservas.models import Reserva
+from rest_framework import viewsets
+from reservas_app.models import Reserva
+
+from .serializers import ReservaSerializer
+from django.shortcuts import render
+
+def respuesta_root(request):
+    return render(request, "respuesta_root.html")
+
+
+def sistema_unificado(request):
+    return render(request, "sistema_unificado.html")
+
+def dashboard(request):
+    return render(request, "dashboard.html")
+
+class ReservaViewSet(viewsets.ModelViewSet):
+    queryset = Reserva.objects.all()
+    serializer_class = ReservaSerializer
+
 
 def index(request):
     return HttpResponse("Alojamientos")

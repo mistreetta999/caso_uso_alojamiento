@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Reservas{% endblock %}
+
+{% block content %}
+<div class="reservation-panel shadow-sm">
+    <h2 class="mb-4">Nueva Reserva</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="cliente" class="form-label">Cliente</label>
+            <input type="text" class="form-control" id="cliente" name="cliente" required>
+        </div>
+        <div class="mb-3">
+            <label for="cabana" class="form-label">Cabaña</label>
+            <select class="form-select" id="cabana" name="cabana" required>
+                {% for cabana in cabanas %}
+                <option value="{{ cabana.id }}">{{ cabana.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha</label>
+            <input type="date" class="form-control" id="fecha" name="fecha" required>
+        </div>
+        <button type="submit" class="btn btn-success">Guardar Reserva</button>
+    </form>
+</div>
+{% endblock %}

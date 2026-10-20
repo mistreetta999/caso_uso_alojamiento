@@ -3,8 +3,18 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views import View
 from .models import Cabana
-from sistema_alojamientos.alojamientos.models import Alojamiento
-from django.http import HttpResponse
+
+from django.shortcuts import render
+
+def respuesta_root(request):
+    return render(request, "respuesta_root.html")
+
+
+def sistema_unificado(request):
+    return render(request, "sistema_unificado.html")
+
+def dashboard(request):
+    return render(request, "dashboard.html")
 
 def cabanas(request):
     return HttpResponse("Bienvenida a las cabanas")

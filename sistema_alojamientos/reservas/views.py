@@ -1,16 +1,25 @@
 """Vistas de la aplicación de reservas."""
-from os import path
 from django.http import HttpResponse
-
+from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Reserva
-
 from django.views import View
-from django.http import HttpResponse
+from reservas_app.models import Reserva
 
 
-def get(self, request):
+def respuesta_root(request):
+    """ ruta respuesta"""
+    return render(request, "respuesta_root.html")
+
+
+def sistema_unificado(request):
+    return render(request, "sistema_unificado.html")
+
+def dashboard(request):
+    return render(request, "dashboard.html")
+
+class SistemaUnificadoView(View):
+    def get(self, request):
         # lógica
         return HttpResponse("Sistema Unificado")
 
@@ -20,8 +29,8 @@ def index(request): # pylint: disable=unused-argument
 
 def lista_reservas(request):
     """Vista para listar todas las reservas."""
-    reservas = Reserva.objects.all()
-    return HttpResponse(", ".join([str(reserva) for reserva in reservas]))
+    reservas = Reserva._default_manager.all()
+    return render(request, "reservas/lista_reservas.html", {"reservas": reservas})
 
 class ReservaListView(ListView):
     """Vista para listar todas las reservas."""
@@ -54,7 +63,6 @@ class ReservaUpdateView(UpdateView):
 
 
 class ReservaDeleteView(DeleteView):
-    """Vista para eliminar una reserva."""
     model = Reserva
     template_name = "reservas/reserva_confirm_delete.html"
     success_url = reverse_lazy("reservas:list")

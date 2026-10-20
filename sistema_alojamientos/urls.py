@@ -1,26 +1,23 @@
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from cabanas_app.views import (
-    IndexView, CabanaListView, CabanaDetailView,
-    CabanaCreateView, CabanaUpdateView, CabanaViewSet,
-    home
-)
-
-# Router para la API REST
-router = DefaultRouter()
-router.register(r'api/cabanas', CabanaViewSet)
+from . import views
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", home, name="home"),
-    # Vistas HTML
-    path("cabanas/", CabanaListView.as_view(), name="listar_cabanas"),
-    path("cabanas/<int:pk>/", CabanaDetailView.as_view(), name="detalle_cabana"),
-    path("cabanas/crear/", CabanaCreateView.as_view(), name="crear_cabana"),
-    path("cabanas/editar/<int:pk>/", CabanaUpdateView.as_view(), name="editar_cabana"),
-    path("", IndexView.as_view(), name="index"),
+    path('admin/', admin.site.urls),
+    
+    # Apuntando al nombre real de las carpetas de tus apps:
+    path('clientes/', include(('clientes_app.urls', 'clientes'), namespace='clientes')),
+    path('reservas/', include(('reservas_app.urls', 'reservas'), namespace='reservas')),
+    path('cabanas/', include(('cabanas_app.urls', 'cabanas'), namespace='cabanas')),
+    path('alojamientos/', include(('alojamientos_app.urls', 'alojamientos'), namespace='alojamientos')),
 
-    # API REST
-    path("", include(router.urls)),
+    # Tus vistas principales...
+    path("", views.sistema_unificado, name="index"),
+    path("dashboard/", views.dashboard, name="dashboard"),
+    path("inicio/", views.inicio, name="inicio"),
+    path("ayuda/", views.AyudaView.as_view(), name="ayuda"),
+    path("contacto/", views.ContactoView.as_view(), name="contacto"),
+    path("sistema/", views.SistemaUnificadoView.as_view(), name="sistema_unificado"),
+    path("nueva/", views.crear_reserva, name="crear_reserva"),
+    path("respuesta/", views.respuesta_root, name="respuesta_root"),
 ]

@@ -1,7 +1,8 @@
 """Formularios para la aplicación de reservas."""
 
 from django import forms
-from .models import Reserva
+from reservas_app.models import Reserva
+
 
 class ReservaForm(forms.ModelForm):
     """Formulario para la creación y edición de reservas."""

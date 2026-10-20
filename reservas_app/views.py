@@ -1,13 +1,27 @@
 from django.http import HttpResponse
-from rest_framework import viewsets
-from .models import Reserva
-from .serializers import ReservaSerializer
 from django.shortcuts import render, redirect
+from rest_framework import viewsets
+
+from reservas_app.models import Reserva
+
+from .serializers import ReservaSerializer
 from .forms import ReservaForm
-from django.http import HttpResponse
+
+
+
+def sistema_unificado(request):
+    return render(request, "sistema_unificado.html")
+
+def dashboard(request):
+    return render(request, "dashboard.html")
+
 def index(request):
+    """Vista de índice para reservas."""
     return HttpResponse("Alojamientos")
+
+
 def crear_reserva(request):
+    """Formulario para crear una reserva."""
     if request.method == "POST":
         form = ReservaForm(request.POST)
         if form.is_valid():
@@ -18,17 +32,9 @@ def crear_reserva(request):
     return render(request, "crear_reserva.html", {"form": form})
 
 
-    queryset = Reserva.objects.all()
+class ReservaViewSet(viewsets.ModelViewSet):
+    """API REST para reservas."""
+    queryset = Reserva.objects.select_related("cliente", "cabana", "alojamiento").all()
     serializer_class = ReservaSerializer
-class ClienteReservaViewSet(viewsets.ModelViewSet):
-    queryset = Reserva.objects.filter(cliente__isnull=False)
-    serializer_class = ReservaSerializer
-class ClienteDetalleViewSet(viewsets.ModelViewSet):
-    queryset = Reserva.objects.filter(cliente__isnull=False)
-    serializer_class = ReservaSerializer
-class ClienteReservaDetalleViewSet(viewsets.ModelViewSet):
-    queryset = Reserva.objects.filter(cliente__isnull=False)
-    serializer_class = ReservaSerializer
-class CabanaReservaViewSet(viewsets.ModelViewSet):
-    queryset = Reserva.objects.filter(cabana__isnull=False)
-    serializer_class = ReservaSerializer
+
+
