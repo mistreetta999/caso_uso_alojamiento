@@ -1,13 +1,7 @@
 import os
-from importlib import import_module
 from pathlib import Path
 from dotenv import load_dotenv
-from django.core.exceptions import ImproperlyConfigured
-
-try:
-    dj_database_url = import_module("dj_database_url")
-except ModuleNotFoundError:
-    dj_database_url = None
+import dj_database_url
 
 # Base directory del proyecto
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,24 +22,12 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "127.0.0.1,localhost,alojamientos-304
 ROOT_URLCONF = "sistema_alojamientos.urls"
 
 # Configuración de Base de Datos
-if dj_database_url is not None:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
-            conn_max_age=600
-        )
-    }
-elif os.getenv("DATABASE_URL"):
-    raise ImproperlyConfigured(
-        "DATABASE_URL is set, but dj-database-url is not installed. Install it to configure the database."
+DATABASES = {
+    'default': dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600
     )
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
+}
 
 # Configuración de REST Framework (Aquí faltaba la coma en tu versión anterior)
 REST_FRAMEWORK = {
