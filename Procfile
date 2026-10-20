@@ -1,1 +1,1 @@
-web: gunicorn sistema_alojamientos.wsgi
+web: gunicorn sistema_alojamientos.wsgi:application
