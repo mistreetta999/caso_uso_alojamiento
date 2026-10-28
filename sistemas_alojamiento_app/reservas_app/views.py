@@ -6,9 +6,22 @@ from django.forms import modelform_factory
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
-
-
+from django.http import JsonResponse
+from .models import Reserva 
 APP_NAME = __package__
+
+def eventos_calendario_json(request):
+    reservas = Reserva.objects.all()
+    eventos = []
+    for r in reservas:
+        eventos.append({
+            'title': f"Reserva: {r.cliente} ({r.cabana})",  # Lo que se mostrará en el calendario
+            'start': r.fecha_inicio.strftime('%Y-%m-%d'),     # Fecha de entrada (asegúrate de que sea DateField o DateTimeField)
+            'end': r.fecha_fin.strftime('%Y-%m-%d'),         # Fecha de salida
+            'url': f"/reservas/detalle/{r.id}/"              # Enlace opcional si haces clic en la reserva
+        })
+    return JsonResponse(eventos, safe=False)
+
 
 
 def _modelos():
