@@ -1,0 +1,21 @@
+{% extends "sitema_alojamientos/crud/base_crud.html" %}
+{% block title %}{{ app|title }}{% endblock %}
+{% block contenido %}
+<h1 class="h3 mb-4">{{ app|title }}</h1>
+<div class="row g-3">
+  {% for m in modelos %}
+  <div class="col-md-4">
+    <div class="card h-100">
+      <div class="card-body">
+        <h5 class="card-title">{{ m.plural|title }}</h5>
+        <p class="text-muted">Total: {{ m.total }}</p>
+        <a class="btn btn-primary btn-sm" href="{% url app|add:':listar' modelo=m.nombre %}">Ver</a>
+        <a class="btn btn-success btn-sm" href="{% url app|add:':crear' modelo=m.nombre %}">Nuevo</a>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p>No hay modelos disponibles.</p>
+  {% endfor %}
+</div>
+{% endblock %}

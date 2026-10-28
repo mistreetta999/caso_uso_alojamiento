@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Sistema Unificado de Alojamientos</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-light">
+    <div class="container mt-5">
+        <h1 class="text-center mb-5">🌐 Sistema Unificado de Alojamientos</h1>
+        
+        <h2 class="text-center mt-4">Bienvenido al Sistema 🏡</h2>
+        <p class="lead text-center">Aquí vas a ver clientes, reservas, cabañas y alojamientos.</p>
+            
+        <h2 class="mb-4">Panel Principal</h2>
+        <ul>
+            <li><a href="/cabanas/lista/">Lista de Cabañas</a></li>
+            <li><a href="/alojamientos/lista/">Lista de Alojamientos</a></li>
+            <li><a href="/clientes/lista/">Lista de Clientes</a></li>
+            <li><a href="/reservas/lista/">Lista de Reservas</a></li>
+        </ul>
+    
+        <div class="row g-4 mt-4">
+            <!-- Clientes -->
+            <div class="col-md-3">
+                <div class="card border-primary shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Clientes</h5>
+                        <p class="card-text">Gestión de clientes registrados.</p>
+                        <a href="/clientes/lista/" class="btn btn-primary">Entrar</a>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Reservas -->
+            <div class="col-md-3">
+                <div class="card border-success shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Reservas</h5>
+                        <p class="card-text">Control de reservas activas.</p>
+                        <a href="/reservas/lista/" class="btn btn-success">Entrar</a>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Cabañas -->
+            <div class="col-md-3">
+                <div class="card border-warning shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Cabañas</h5>
+                        <p class="card-text">Administración de cabañas disponibles.</p>
+                        <a href="/cabanas/lista/" class="btn btn-warning">Entrar</a>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Alojamientos -->
+            <div class="col-md-3">
+                <div class="card border-danger shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Alojamientos</h5>
+                        <p class="card-text">Gestión de alojamientos.</p>
+                        <a href="/alojamientos/lista/" class="btn btn-danger">Entrar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+    </html>

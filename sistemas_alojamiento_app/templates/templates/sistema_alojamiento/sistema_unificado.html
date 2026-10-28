@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Unificado de Alojamientos</title>
+    <!-- Bootstrap 5 CDN CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @media (min-width: 992px) {
+            #asideApps { min-height: calc(100vh - 56px); }
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    {% url 'alojamientos_app:crear' as url_alojamientos_crear %}
+    {% url 'alojamientos_app:global' as url_alojamientos_global %}
+    {% url 'cabanas_app:crear_cabanas' as url_cabanas_crear %}
+    {% url 'clientes_app:crear_cliente' as url_clientes_crear %}
+    {% url 'reservas_app:clientes' as url_reservas_clientes %}
+    {% url 'reservas_app:crear_clientes' as url_reservas_crear_clientes %}
+    {% url 'reservas_app:crear_reservas' as url_reservas_crear %}
+    {% url 'panel_central' as url_panel_central %}
+    {% url 'ayuda' as url_ayuda %}
+    {% url 'contacto' as url_contacto %}
+
+    <!-- Barra de navegación superior -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container-fluid">
+
+            <!-- Botón para abrir el aside en celular -->
+            <button class="btn btn-outline-light btn-sm d-lg-none me-2" type="button" data-bs-toggle="offcanvas" data-bs-target="#asideApps" aria-controls="asideApps" aria-label="Abrir panel de aplicaciones">☰ Apps</button>
+
+            <a class="navbar-brand fw-bold" href="{% url 'sistema_unificado' %}">🏨 Sistema Alojamiento</a>
+
+            <!-- Toggler del menú superior -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal" aria-controls="menuPrincipal" aria-expanded="false" aria-label="Mostrar menú">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menuPrincipal">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-1">
+
+                    <li class="nav-item">
+                        <a class="btn btn-outline-light btn-sm" href="{% url 'home' %}">Inicio / Dashboard</a>
+                    </li>
+
+                    <!-- Toggle Clientes -->
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" id="toggleClientes" data-bs-toggle="dropdown" aria-expanded="false">Clientes</button>
+                        <ul class="dropdown-menu" aria-labelledby="toggleClientes">
+                            <li><a class="dropdown-item" href="{% url 'menu_clientes' %}">Menú Clientes</a></li>
+                            <li><a class="dropdown-item" href="{% url 'clientes_app:lista' %}">Lista de Clientes</a></li>
+                            {% if url_clientes_crear %}<li><a class="dropdown-item" href="{{ url_clientes_crear }}">Crear Cliente</a></li>{% endif %}
+                        </ul>
+                    </li>
+
+                    <!-- Toggle Reservas -->
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-success btn-sm dropdown-toggle" type="button" id="toggleReservas" data-bs-toggle="dropdown" aria-expanded="false">Reservas</button>
+                        <ul class="dropdown-menu" aria-labelledby="toggleReservas">
+                            <li><a class="dropdown-item" href="{% url 'menu_reservas' %}">Menú Reservas</a></li>
+                            <li><a class="dropdown-item" href="{% url 'reservas_app:lista' %}">Lista de Reservas</a></li>
+                            {% if url_reservas_crear %}<li><a class="dropdown-item" href="{{ url_reservas_crear }}">Crear Reserva</a></li>{% endif %}
+                            {% if url_reservas_clientes %}<li><a class="dropdown-item" href="{{ url_reservas_clientes }}">Clientes de Reservas</a></li>{% endif %}
+                            {% if url_reservas_crear_clientes %}<li><a class="dropdown-item" href="{{ url_reservas_crear_clientes }}">Crear Cliente (Reservas)</a></li>{% endif %}
+                        </ul>
+                    </li>
+
+                    <!-- Toggle Cabañas -->
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-warning btn-sm text-white dropdown-toggle" type="button" id="toggleCabanas" data-bs-toggle="dropdown" aria-expanded="false">Cabañas</button>
+                        <ul class="dropdown-menu" aria-labelledby="toggleCabanas">
+                            <li><a class="dropdown-item" href="{% url 'menu_cabanas' %}">Menú Cabañas</a></li>
+                            <li><a class="dropdown-item" href="{% url 'cabanas_app:lista_cabanas' %}">Lista de Cabañas</a></li>
+                            {% if url_cabanas_crear %}<li><a class="dropdown-item" href="{{ url_cabanas_crear }}">Crear Cabaña</a></li>{% endif %}
+                        </ul>
+                    </li>
+
+                    <!-- Toggle Alojamientos -->
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-info btn-sm text-white dropdown-toggle" type="button" id="toggleAlojamientos" data-bs-toggle="dropdown" aria-expanded="false">Alojamientos</button>
+                        <ul class="dropdown-menu" aria-labelledby="toggleAlojamientos">
+                            <li><a class="dropdown-item" href="{% url 'menu_alojamientos' %}">Menú Alojamientos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'alojamientos_app:lista_alojamientos' %}">Lista de Alojamientos</a></li>
+                            {% if url_alojamientos_crear %}<li><a class="dropdown-item" href="{{ url_alojamientos_crear }}">Crear Alojamiento</a></li>{% endif %}
+                            {% if url_alojamientos_global %}<li><a class="dropdown-item" href="{{ url_alojamientos_global }}">Vista Global</a></li>{% endif %}
+                        </ul>
+                    </li>
+
+                    <!-- Toggle Sistema -->
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" id="toggleSistema" data-bs-toggle="dropdown" aria-expanded="false">Sistema</button>
+                        <ul class="dropdown-menu" aria-labelledby="toggleSistema">
+                            {% if url_panel_central %}<li><a class="dropdown-item" href="{{ url_panel_central }}">Panel Central</a></li>{% endif %}
+                            {% if url_ayuda %}<li><a class="dropdown-item" href="{{ url_ayuda }}">Ayuda</a></li>{% endif %}
+                            {% if url_contacto %}<li><a class="dropdown-item" href="{{ url_contacto }}">Contacto</a></li>{% endif %}
+                        </ul>
+                    </li>
+
+                </ul>
+                <div class="ms-auto">
+                    <a href="/admin/" class="btn btn-outline-light btn-sm" target="_blank">⚙️ Panel Admin</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <!-- ASIDE: todas las apps -->
+            <aside class="offcanvas-lg offcanvas-start col-lg-3 col-xl-2 bg-dark text-white p-0" tabindex="-1" id="asideApps" aria-labelledby="asideAppsTitulo">
+                <div class="offcanvas-header border-bottom border-secondary d-lg-none">
+                    <h5 class="offcanvas-title" id="asideAppsTitulo">Aplicaciones</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#asideApps" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="offcanvas-body d-block p-3">
+                    <h6 class="text-uppercase text-secondary small mb-3 d-none d-lg-block">Aplicaciones</h6>
+
+                    <div class="d-grid gap-2">
+
+                        <a href="{% url 'home' %}" class="btn btn-outline-light text-start">🏠 Inicio / Dashboard</a>
+
+                        <!-- Aside Clientes -->
+                        <button class="btn btn-primary text-start d-flex justify-content-between align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#asideClientes" aria-expanded="false" aria-controls="asideClientes">
+                            <span>👥 Clientes</span><span>▾</span>
+                        </button>
+                        <div class="collapse" id="asideClientes">
+                            <div class="d-grid gap-1 ps-2">
+                                <a class="btn btn-sm btn-outline-primary text-start" href="{% url 'menu_clientes' %}">Menú Clientes</a>
+                                <a class="btn btn-sm btn-outline-primary text-start" href="{% url 'clientes_app:lista' %}">Lista de Clientes</a>
+                                {% if url_clientes_crear %}<a class="btn btn-sm btn-outline-primary text-start" href="{{ url_clientes_crear }}">Crear Cliente</a>{% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Aside Reservas -->
+                        <button class="btn btn-success text-start d-flex justify-content-between align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#asideReservas" aria-expanded="false" aria-controls="asideReservas">
+                            <span>📅 Reservas</span><span>▾</span>
+                        </button>
+                        <div class="collapse" id="asideReservas">
+                            <div class="d-grid gap-1 ps-2">
+                                <a class="btn btn-sm btn-outline-success text-start" href="{% url 'menu_reservas' %}">Menú Reservas</a>
+                                <a class="btn btn-sm btn-outline-success text-start" href="{% url 'reservas_app:lista' %}">Lista de Reservas</a>
+                                {% if url_reservas_crear %}<a class="btn btn-sm btn-outline-success text-start" href="{{ url_reservas_crear }}">Crear Reserva</a>{% endif %}
+                                {% if url_reservas_clientes %}<a class="btn btn-sm btn-outline-success text-start" href="{{ url_reservas_clientes }}">Clientes de Reservas</a>{% endif %}
+                                {% if url_reservas_crear_clientes %}<a class="btn btn-sm btn-outline-success text-start" href="{{ url_reservas_crear_clientes }}">Crear Cliente (Reservas)</a>{% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Aside Cabañas -->
+                        <button class="btn btn-warning text-white text-start d-flex justify-content-between align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#asideCabanas" aria-expanded="false" aria-controls="asideCabanas">
+                            <span>🛖 Cabañas</span><span>▾</span>
+                        </button>
+                        <div class="collapse" id="asideCabanas">
+                            <div class="d-grid gap-1 ps-2">
+                                <a class="btn btn-sm btn-outline-warning text-start" href="{% url 'menu_cabanas' %}">Menú Cabañas</a>
+                                <a class="btn btn-sm btn-outline-warning text-start" href="{% url 'cabanas_app:lista_cabanas' %}">Lista de Cabañas</a>
+                                {% if url_cabanas_crear %}<a class="btn btn-sm btn-outline-warning text-start" href="{{ url_cabanas_crear }}">Crear Cabaña</a>{% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Aside Alojamientos -->
+                        <button class="btn btn-info text-white text-start d-flex justify-content-between align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#asideAlojamientos" aria-expanded="false" aria-controls="asideAlojamientos">
+                            <span>🏨 Alojamientos</span><span>▾</span>
+                        </button>
+                        <div class="collapse" id="asideAlojamientos">
+                            <div class="d-grid gap-1 ps-2">
+                                <a class="btn btn-sm btn-outline-info text-start" href="{% url 'menu_alojamientos' %}">Menú Alojamientos</a>
+                                <a class="btn btn-sm btn-outline-info text-start" href="{% url 'alojamientos_app:lista_alojamientos' %}">Lista de Alojamientos</a>
+                                {% if url_alojamientos_crear %}<a class="btn btn-sm btn-outline-info text-start" href="{{ url_alojamientos_crear }}">Crear Alojamiento</a>{% endif %}
+                                {% if url_alojamientos_global %}<a class="btn btn-sm btn-outline-info text-start" href="{{ url_alojamientos_global }}">Vista Global</a>{% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Aside Sistema -->
+                        <button class="btn btn-secondary text-start d-flex justify-content-between align-items-center" type="button" data-bs-toggle="collapse" data-bs-target="#asideSistema" aria-expanded="false" aria-controls="asideSistema">
+                            <span>⚙️ Sistema</span><span>▾</span>
+                        </button>
+                        <div class="collapse" id="asideSistema">
+                            <div class="d-grid gap-1 ps-2">
+                                {% if url_panel_central %}<a class="btn btn-sm btn-outline-secondary text-start" href="{{ url_panel_central }}">Panel Central</a>{% endif %}
+                                {% if url_ayuda %}<a class="btn btn-sm btn-outline-secondary text-start" href="{{ url_ayuda }}">Ayuda</a>{% endif %}
+                                {% if url_contacto %}<a class="btn btn-sm btn-outline-secondary text-start" href="{{ url_contacto }}">Contacto</a>{% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Contenido Principal -->
+            <main class="col-lg-9 col-xl-10 py-4 px-lg-4">
+                <div class="row text-center mb-5">
+                    <div class="col-md-12">
+                        <h1 class="display-5 fw-bold text-dark">Panel Central de Control</h1>
+                        <p class="lead text-muted">Selecciona el módulo del sistema que deseas gestionar a continuación:</p>
+                    </div>
+                </div>
+
+                <!-- Tarjetas de Navegación por Módulo -->
+                <div class="row g-4 text-center">
+
+                    <!-- Módulo de Clientes -->
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card border-primary shadow-sm h-100">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <h5 class="card-title text-primary fw-bold">Clientes</h5>
+                                    <p class="card-text text-muted small mt-2">Gestiona el listado y registro de huéspedes y clientes.</p>
+                                </div>
+                                <a href="{% url 'clientes_app:lista' %}" class="btn btn-primary mt-3 w-100">Ir a Clientes</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Módulo de Reservas -->
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card border-success shadow-sm h-100">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <h5 class="card-title text-success fw-bold">Reservas</h5>
+                                    <p class="card-text text-muted small mt-2">Controla fechas, estados y reservas activas.</p>
+                                </div>
+                                <a href="{% url 'reservas_app:lista' %}" class="btn btn-success mt-3 w-100">Ir a Reservas</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Módulo de Cabañas -->
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card border-warning shadow-sm h-100">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <h5 class="card-title text-warning fw-bold">Cabañas</h5>
+                                    <p class="card-text text-muted small mt-2">Administra el catálogo y detalles de cabañas.</p>
+                                </div>
+                                <a href="{% url 'cabanas_app:lista_cabanas' %}" class="btn btn-warning text-white mt-3 w-100">Ir a Cabañas</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Módulo de Alojamientos -->
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card border-info shadow-sm h-100">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <div>
+                                    <h5 class="card-title text-info fw-bold">Alojamientos</h5>
+                                    <p class="card-text text-muted small mt-2">Revisa el listado general de alojamientos.</p>
+                                </div>
+                                <a href="{% url 'alojamientos_app:lista_alojamientos' %}" class="btn btn-info text-white mt-3 w-100">Ir a Alojamientos</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Pie de página -->
+                <div class="row mt-5">
+                    <div class="col-md-12 text-center text-muted small">
+                        <hr>
+                        <p>Sistema Integral de Gestión de Alojamientos &copy; 2026</p>
+                    </div>
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS Bundle CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

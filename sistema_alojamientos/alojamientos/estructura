@@ -1,0 +1,10 @@
+sistema_alojamientos/
+│
+├── alojamientos/
+│   ├── __init__.py
+│   ├── models.py        # Alojamiento, Cabana, Cliente, Reserva
+│   ├── views.py         # ViewSets o vistas basadas en clases
+│   ├── urls.py          # Router de DRF o paths
+│   ├── admin.py         # Registro de modelos en el admin
+│   ├── serializers.py   # Serializers de DRF
+│   └── migrations/

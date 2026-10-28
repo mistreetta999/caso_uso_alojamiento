@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Lista de Cabañas - Sistema de Alojamiento</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-light">
+    <div class="container mt-5">
+        <!-- Cabecera de la sección -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>🏡 Listado de Cabañas</h1>
+            <div>
+                <a href="/" class="btn btn-outline-secondary me-2">← Volver al Inicio</a>
+                <a href="/cabanas/dashboard/" class="btn btn-outline-warning text-dark">Dashboard Cabañas</a>
+            </div>
+        </div>
+    
+        <!-- Mensajes del sistema (Alertas) -->
+        {% if messages %}
+            <div class="row">
+                <div class="col-12">
+                    {% for message in messages %}
+                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    
+        <!-- Tarjeta contenedora con la tabla de datos -->
+        <div class="card shadow-sm mb-4 border-warning">
+            <div class="card-header bg-warning text-dark fw-bold d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Cabañas Registradas en el Sistema</h5>
+                <a href="/cabanas/nuevo/" class="btn btn-sm btn-dark">+ Registrar Cabaña</a>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Consulta y administra las cabañas disponibles.</p>
+                
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th># ID</th>
+                                <th>Nombre</th>
+                                <th>Ubicación</th>
+                                <th>Precio por noche</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cabana in cabanas %}
+                            <tr>
+                                <td>{{ cabana.id }}</td>
+                                <td>{{ cabana.nombre }}</td>
+                                <td>{{ cabana.ubicacion|default:"No especificada" }}</td>
+                                <td>${{ cabana.precio|default:"0.00" }}</td>
+                                <td>
+                                    <a href="/cabanas/{{ cabana.id }}/" class="btn btn-sm btn-outline-warning text-dark me-1">Ver</a>
+                                    <a href="/cabanas/{{ cabana.id }}/editar/" class="btn btn-sm btn-outline-secondary">Editar</a>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center text-muted py-4">No hay cabañas registradas en este momento.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Botones de acción inferior -->
+        <div class="text-center mb-5">
+            <a href="/gestion/" class="btn btn-dark mx-1">Ir a Gestión General</a>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>

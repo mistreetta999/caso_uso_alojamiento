@@ -1,0 +1,8 @@
+.\venv\Scripts\Activate.ps1
+python manage.py makemigrations
+python manage.py migrate
+python manage.py check
+pip install django djangorestframework django-extensions django-filter dj-database-url python-dotenv whitenoise
+pip install --upgrade djangorestframework
+uvicorn sistema_alojamientos.asgi:application --reload
+python manage.py runserver

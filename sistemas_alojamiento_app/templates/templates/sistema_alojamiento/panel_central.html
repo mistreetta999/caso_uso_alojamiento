@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Unificado de Alojamientos</title>
+</head>
+<body>
+    <h1>Panel Central de Gestión</h1>
+
+    <!-- Menú de navegación rápido dentro de tu misma unificación -->
+    <nav>
+        <a href="#clientes">Clientes</a> | 
+        <a href="#alojamientos">Alojamientos</a> | 
+        <a href="#reservas">Reservas</a>
+    </nav>
+
+    <hr>
+
+    <!-- Sección de Alojamientos (Ejemplo de CRUD visual) -->
+    <section id="alojamientos">
+        <h2>Gestión de Alojamientos</h2>
+        
+        <!-- Botón para abrir formulario de creación o enlace -->
+        <a href="{% url 'alojamientos:create' %}">+ Nuevo Alojamiento</a>
+
+        <!-- Tabla para ver los datos existentes -->
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Capacidad</th>
+                    <th>Precio por Noche</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for alojamiento in alojamientos %}
+                <tr>
+                    <td>{{ alojamiento.nombre }}</td>
+                    <td>{{ alojamiento.capacidad }}</td>
+                    <td>${{ alojamiento.precio_por_noche }}</td>
+                    <td>
+                        <a href="{% url 'alojamientos:update' alojamiento.pk %}">Editar</a> | 
+                        <a href="{% url 'alojamientos:delete' alojamiento.pk %}">Eliminar</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">No hay alojamientos cargados todavía.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Haces lo mismo abajo para Clientes y Reservas -->
+</body>
+</html>

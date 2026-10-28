@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Dashboard de Cabañas - Sistema de Alojamiento</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-light">
+    <div class="container mt-5">
+        <!-- Cabecera de la sección -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>📊 Dashboard de Cabañas</h1>
+            <div>
+                <a href="/cabanas/" class="btn btn-outline-warning text-dark me-2">← Ver Cabañas</a>
+                <a href="/" class="btn btn-outline-primary">Ir al Inicio</a>
+            </div>
+        </div>
+    
+        <p class="lead text-muted">Panel de control y métricas generales del módulo de cabañas.</p>
+    
+        <!-- Tarjetas de Estadísticas / Acciones -->
+        <div class="row g-4 mt-3">
+            <div class="col-md-4">
+                <div class="card border-warning shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-warning text-dark fw-bold">Gestión de Cabañas</h5>
+                        <p class="card-text">Administra, edita o consulta el listado completo.</p>
+                        <a href="/cabanas/" class="btn btn-warning text-dark fw-bold">Ver Listado</a>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-md-4">
+                <div class="card border-success shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-success">Registrar Nueva</h5>
+                        <p class="card-text">Agrega una nueva cabaña disponible al sistema.</p>
+                        <a href="/cabanas/nuevo/" class="btn btn-success">+ Nueva Cabaña</a>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="col-md-4">
+                <div class="card border-primary shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-primary">Gestión General</h5>
+                        <p class="card-text">Vuelve al panel global de control del alojamiento.</p>
+                        <a href="/gestion/" class="btn btn-primary">Ir a Gestión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>

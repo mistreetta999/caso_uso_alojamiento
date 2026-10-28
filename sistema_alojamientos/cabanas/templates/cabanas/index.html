@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Módulo de Cabañas - Sistema de Alojamiento</title>
+        <!-- Carga de Bootstrap 5 -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-light">
+    <div class="container mt-5">
+        <!-- Cabecera de la sección -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>🏡 Módulo de Cabañas</h1>
+            <a href="/" class="btn btn-outline-secondary">← Volver al Inicio</a>
+        </div>
+    
+        <p class="lead text-muted">Bienvenido a la administración, control de inventario y precios de las cabañas de tu sistema.</p>
+    
+        <!-- Tarjetas de Acciones Rápidas -->
+        <div class="row g-4 mt-3">
+            <!-- Ver Cabañas -->
+            <div class="col-md-4">
+                <div class="card border-warning shadow-sm h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title text-dark fw-bold">Ver Cabañas</h5>
+                            <p class="card-text text-muted">Consulta la lista completa, precios y disponibilidad de todas las cabañas.</p>
+                        </div>
+                        <a href="/cabanas/" class="btn btn-warning text-dark fw-bold mt-3">Consultar Listado</a>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Registrar Cabaña -->
+            <div class="col-md-4">
+                <div class="card border-success shadow-sm h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title text-success fw-bold">Registrar Cabaña</h5>
+                            <p class="card-text text-muted">Agrega una nueva cabaña al inventario del sistema de forma rápida.</p>
+                        </div>
+                        <a href="/cabanas/nuevo/" class="btn btn-success mt-3">+ Nueva Cabaña</a>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Gestión General -->
+            <div class="col-md-4">
+                <div class="card border-dark shadow-sm h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h5 class="card-title text-dark fw-bold">Gestión General</h5>
+                            <p class="card-text text-muted">Accede al panel global de control y administración de todo el sistema.</p>
+                        </div>
+                        <a href="/gestion/" class="btn btn-dark mt-3">Ir a Gestión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>

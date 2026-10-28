@@ -1,0 +1,20 @@
+{% extends "sitema_alojamientos/crud/base_crud.html" %}
+{% block title %}{{ titulo }}{% endblock %}
+{% block contenido %}
+<h1 class="h3 mb-3">{{ titulo }}</h1>
+<form method="post" enctype="multipart/form-data" class="card card-body">
+  {% csrf_token %}
+  {% for campo in form %}
+  <div class="mb-3">
+    <label class="form-label" for="{{ campo.id_for_label }}">{{ campo.label }}</label>
+    {{ campo }}
+    {% for e in campo.errors %}<div class="text-danger small">{{ e }}</div>{% endfor %}
+  </div>
+  {% endfor %}
+  {{ form.non_field_errors }}
+  <div>
+    <button class="btn btn-primary" type="submit">Guardar</button>
+    <a class="btn btn-secondary" href="{% url app|add:':listar' modelo=modelo %}">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

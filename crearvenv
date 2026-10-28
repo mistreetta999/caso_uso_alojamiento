@@ -1,0 +1,15 @@
+
+# 2. Crear entorno virtual
+python -m venv venv
+
+# 3. Activar entorno virtual
+.\venv\Scripts\Activate.ps1
+
+# 4. Actualizar pip
+python -m pip install --upgrade pip
+
+# 5. Instalar dependencias desde requirements.txt
+pip install -r requirements.txt
+
+# 6. Guardar todas las librerías instaladas
+pip freeze > requirements.txt

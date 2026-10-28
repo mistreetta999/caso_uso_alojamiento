@@ -1,0 +1,74 @@
+/* Estilo general para formularios */
+body {
+    font-family: Arial, sans-serif;
+    background: url("../src/fondo.jpg") no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    color: #2e4d2e; /* verde oscuro */
+}
+
+/* Contenedor del formulario */
+form {
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid #3a7a3a;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 500px;
+    margin: 50px auto;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Títulos */
+h1 {
+    text-align: center;
+    color: #2e7d32;
+    margin-bottom: 20px;
+}
+
+/* Etiquetas */
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #1b5e20;
+}
+
+/* Campos de entrada */
+input, textarea, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #4caf50;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+/* Botón */
+button {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #388e3c;
+}
+
+/* Ajuste para imágenes decorativas */
+.form-foto {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-foto img {
+    max-width: 100%;
+    border-radius: 10px;
+    border: 2px solid #2e7d32;
+}

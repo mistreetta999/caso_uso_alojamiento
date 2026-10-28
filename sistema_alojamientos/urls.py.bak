@@ -1,0 +1,36 @@
+from django.contrib import admin
+from django.urls import path
+from django.views.generic import TemplateView
+from django.urls import path, include
+urlpatterns = [
+    path('clientes/', include('sistemas_alojamiento_app.clientes_app.urls')),
+    path('reservas/', include('sistemas_alojamiento_app.reservas_app.urls')),
+    path('cabanas/', include('sistemas_alojamiento_app.cabanas_app.urls')),
+    path('alojamientos/', include('sistemas_alojamiento_app.alojamientos_app.urls')),
+    path('admin/', admin.site.urls),
+    path('', TemplateView.as_view(template_name='sistema_alojamiento/sistema_unificado.html'), name='home'),
+    
+    path("clientes/", include("sistemas_alojamiento_app.clientes_app.urls")),
+    path("reservas/", include("sistemas_alojamiento_app.reservas_app.urls")),
+    path("cabanas/", include("sistemas_alojamiento_app.cabanas_app.urls")),
+    path("alojamientos/", include("sistemas_alojamiento_app.alojamientos_app.urls")),
+
+    
+    # Todas las rutas apuntando limpiamente a la plantilla unificada
+    path('', TemplateView.as_view(template_name='sistema_alojamiento/sistema_unificado.html'), name='home'),
+    path('clientes/', TemplateView.as_view(template_name='sistema_alojamiento/sistema_unificado.html'), name='clientes'),
+    path('reservas/', TemplateView.as_view(template_name='sistema_alojamiento/sistema_unificado.html'), name='reservas'),
+    path('cabanas/', TemplateView.as_view(template_name='sistema_alojamiento/sistema_unificado.html'), name='cabanas'),
+    path('alojamientos/', TemplateView.as_view(template_name='sistema_alojamiento/sistema_unificado.html'), name='alojamientos'),
+    # Menú principal
+    path('', TemplateView.as_view(template_name='sistema_alojamiento/sistema_unificado.html'), name='inicio'),
+  
+    # ⚠️ Los 'name=' deben llamarse exactamente igual a lo que usa tu botón
+    path('clientes_app/', TemplateView.as_view(template_name='clientes_app/clientes.html'), name='clientes'),
+    path('reservas_app/', TemplateView.as_view(template_name='reservas_app/reservas.html'), name='reservas'),
+    path('cabanas_app/', TemplateView.as_view(template_name='cabanas_apps/cabanas.html'), name='cabanas'),
+    path('alojamientos_app/', TemplateView.as_view(template_name='alojamientos_app/alojamientos.html'), name='alojamientos'),
+
+]
+
+

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema Central de Gestión</title>
+</head>
+<body>
+    <header>
+        <h1>Panel de Control Unificado</h1>
+    </header>
+
+    <nav>
+        <!-- Enlaces a las diferentes secciones o vistas de tu sistema -->
+        <a href="{% url 'home' %}">Inicio / Dashboard</a> |
+        <a href="{% url 'menu_clientes' %}">Clientes</a> |
+        <a href="{% url 'menu_reservas' %}">Reservas</a> |
+        <a href="{% url 'menu_cabanas' %}">Cabañas</a> |
+        <a href="{% url 'menu_alojamientos' %}">Alojamientos</a>
+    </nav>
+
+    <hr>
+
+    <main>
+        <!-- Aquí es donde puedes incrustar las tablas del CRUD, formularios o contenido dinámico -->
+        <section>
+            <h2>Bienvenido al sistema</h2>
+            <p>Selecciona una opción del menú superior para gestionar los registros.</p>
+        </section>
+    </main>
+</body>
+</html>

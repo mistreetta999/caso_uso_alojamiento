@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Inicio - Sistema de Alojamiento</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-light">
+    <div class="container mt-5">
+        <!-- Cabecera de bienvenida -->
+        <div class="text-center mb-5">
+            <h1 class="display-5 fw-bold text-dark">🏡 Bienvenido al Sistema de Alojamiento</h1>
+            <p class="lead text-muted">Panel de control principal para la gestión integral de cabañas y clientes.</p>
+            {% extends "sitema_alojamientos/crud/base_crud.html" %}
+            {% block title %}{{ app|title }}{% endblock %}
+            {% block contenido %}
+            <h1 class="h3 mb-4">{{ app|title }}</h1>
+            <div class="row g-3">
+              {% for m in modelos %}
+              <div class="col-md-4">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <h5 class="card-title">{{ m.plural|title }}</h5>
+                    <p class="text-muted">Total: {{ m.total }}</p>
+                    <a class="btn btn-primary btn-sm" href="{% url app|add:':listar' modelo=m.nombre %}">Ver</a>
+                    <a class="btn btn-success btn-sm" href="{% url app|add:':crear' modelo=m.nombre %}">Nuevo</a>
+                  </div>
+                </div>
+              </div>
+              {% empty %}
+              <p>No hay modelos disponibles.</p>
+              {% endfor %}
+            </div>
+            {% endblock %}
+       
+        </div>
+    
+        <!-- Tarjetas de Navegación a los Módulos -->
+        <div class="row g-4 justify-content-center">
+            <!-- Módulo Cabañas -->
+            <div class="col-md-4">
+                <div class="card border-warning shadow-sm h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="card-title text-dark fw-bold mb-3">🏡 Módulo de Cabañas</h3>
+                            <p class="card-text text-muted">Administra el inventario, consulta el listado, precios y detalles de todas las cabañas registradas.</p>
+                        </div>
+                        <a href="/cabanas/" class="btn btn-warning text-dark fw-bold mt-4">Entrar a Cabañas</a>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Módulo Clientes -->
+            <div class="col-md-4">
+                <div class="card border-primary shadow-sm h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="card-title text-primary fw-bold mb-3">👥 Módulo de Clientes</h3>
+                            <p class="card-text text-muted">Registra, consulta y administra la información de los clientes de manera rápida y sencilla.</p>
+                        </div>
+                        <a href="/clientes/" class="btn btn-primary mt-4">Entrar a Clientes</a>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Gestión General -->
+            <div class="col-md-4">
+                <div class="card border-dark shadow-sm h-100">
+                    <div class="card-body text-center d-flex flex-column justify-content-between">
+                        <div>
+                            <h3 class="card-title text-dark fw-bold mb-3">⚙️ Gestión General</h3>
+                            <p class="card-text text-muted">Accede al panel de control global y herramientas de administración de todo el sistema.</p>
+                        </div>
+                        <a href="/gestion/" class="btn btn-dark mt-4">Ir a Gestión</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>

@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>{{ titulo }}</title>
+</head>
+<body>
+    <h1>{{ titulo }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ formulario.as_p }}
+        <button type="submit">Guardar</button>
+        <a href="{{ url_volver }}">Cancelar</a>
+    </form>
+</body>
+</html>

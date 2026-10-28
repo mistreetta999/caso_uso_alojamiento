@@ -1,0 +1,10 @@
+<h2 class="mb-4">Detalle de Reserva</h2>
+<ul class="list-group">
+    <li class="list-group-item"><strong>Cliente:</strong> {{ reserva.cliente }}</li>
+    <li class="list-group-item"><strong>Cabaña:</strong> {{ reserva.cabana }}</li>
+    <li class="list-group-item"><strong>Fecha Inicio:</strong> {{ reserva.fecha_inicio }}</li>
+    <li class="list-group-item"><strong>Fecha Fin:</strong> {{ reserva.fecha_fin }}</li>
+</ul>
+<a href="{% url 'reservas:editar' reserva.id %}" class="btn btn-warning mt-3">Editar</a>
+<a href="{% url 'reservas:inicio' %}" class="btn btn-secondary mt-3">Volver</a>
+{% endblock %}

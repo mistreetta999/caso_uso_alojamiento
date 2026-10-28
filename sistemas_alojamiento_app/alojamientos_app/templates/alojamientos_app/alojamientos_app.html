@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Módulo de Reservas</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+    <body class="bg-light">
+    <div class="container mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>📅 Módulo de Reservas</h1>
+            <a href="/" class="btn btn-secondary">← Volver al Inicio</a>
+        </div>
+        <div class="container">
+        <h1>🌐 Sistema Unificado de Alojamientos</h1>
+        <p class="subtitle">Panel principal de control y acceso rápido a los módulos del sistema.</p>
+
+        <div class="modules-grid">
+            <!-- Módulo Clientes -->
+            <div class="module-card">
+                <h3>Clientes</h3>
+                <p>Gestiona el listado y registro de clientes.</p>
+                <a href="{% url 'clientes' %}" class="btn">Ir a Clientes</a>
+            </div>
+
+            <!-- Módulo Reservas -->
+            <div class="module-card">
+                <h3>Reservas</h3>
+                <p>Controla fechas, estados y reservas.</p>
+                <a href="{% url 'reservas' %}" class="btn">Ir a Reservas</a>
+            </div>
+
+            <!-- Módulo Cabañas -->
+            <div class="module-card">
+                <h3>Cabañas</h3>
+                <p>Administra el catálogo de cabañas.</p>
+                <a href="{% url 'cabanas' %}" class="btn">Ir a Cabañas</a>
+            </div>
+
+            <!-- Módulo Alojamientos -->
+            <div class="module-card">
+                <h3>Alojamientos</h3>
+                <p>Revisa los alojamientos disponibles.</p>
+                <a href="{% url 'alojamientos' %}" class="btn">Ir a Alojamientos</a>
+            </div>
+        </div>
+
+        <div>
+            <a href="/admin/" class="admin-link">⚙️ Ir al Panel de Administración de Django</a>
+        </div>
+    </div>
+        <div class="card shadow-sm p-4">
+            <p class="text-muted">Aquí puedes gestionar todas las reservas del sistema de alojamientos.</p>
+            <!-- Aquí puedes listar tus reservas -->
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+    </html>

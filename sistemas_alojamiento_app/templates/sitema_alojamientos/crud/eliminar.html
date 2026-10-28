@@ -1,0 +1,13 @@
+{% extends "sitema_alojamientos/crud/base_crud.html" %}
+{% block title %}Eliminar{% endblock %}
+{% block contenido %}
+<h1 class="h3 mb-3">Eliminar registro</h1>
+<form method="post" class="card card-body">
+  {% csrf_token %}
+  <p>¿Seguro que querés eliminar <strong>{{ obj }}</strong>?</p>
+  <div>
+    <button class="btn btn-danger" type="submit">Eliminar</button>
+    <a class="btn btn-secondary" href="{% url app|add:':listar' modelo=modelo %}">Cancelar</a>
+  </div>
+</form>
+{% endblock %}

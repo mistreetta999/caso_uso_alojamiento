@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>{{ titulo }}</title>
+</head>
+<body>
+    <h1>{{ titulo }}</h1>
+    <ul>
+        {% for m in modelos %}
+        <li>
+            <a href="{{ m.url }}">{{ m.titulo }}</a>
+            | <a href="{{ m.url_crear }}">Nuevo</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

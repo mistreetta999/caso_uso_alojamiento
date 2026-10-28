@@ -1,0 +1,197 @@
+/* static/css/style.css */
+
+:root {
+    --color-primario: #0d6efd;
+    --color-exito: #198754;
+    --color-aviso: #ffc107;
+    --color-info: #0dcaf0;
+    --color-peligro: #dc3545;
+    --color-fondo: #f4f6f9;
+    --color-texto: #212529;
+    --radio: 0.75rem;
+    --sombra: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.08);
+    --sombra-hover: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.15);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-texto);
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+    min-height: 100vh;
+}
+
+/* Navbar */
+.navbar {
+    box-shadow: var(--sombra);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.navbar .nav-link {
+    transition: color 0.2s ease;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link:focus {
+    color: #ffffff;
+}
+
+/* Títulos */
+h1 {
+    font-weight: 700;
+}
+
+.lead {
+    font-size: 1.1rem;
+}
+
+/* Tarjetas */
+.card {
+    border-radius: var(--radio);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--sombra-hover) !important;
+}
+
+.card-header {
+    border-top-left-radius: var(--radio) !important;
+    border-top-right-radius: var(--radio) !important;
+}
+
+.card-title {
+    font-size: 1.25rem;
+}
+
+/* Botones */
+.btn {
+    border-radius: 0.5rem;
+    font-weight: 500;
+}
+
+.btn-group .btn {
+    border-radius: 0;
+}
+
+.btn-group .btn:first-child {
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+}
+
+.btn-group .btn:last-child {
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+}
+
+/* Formularios (form.as_p de Django) */
+form p {
+    margin-bottom: 1rem;
+}
+
+form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="number"],
+form input[type="date"],
+form input[type="password"],
+form input[type="url"],
+form input[type="tel"],
+form select,
+form textarea {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--color-texto);
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    border-radius: 0.5rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+form input[type="checkbox"],
+form input[type="radio"] {
+    margin-right: 0.4rem;
+}
+
+form .helptext {
+    display: block;
+    font-size: 0.85rem;
+    color: #6c757d;
+    margin-top: 0.25rem;
+}
+
+form .errorlist {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.35rem 0;
+    color: var(--color-peligro);
+    font-size: 0.9rem;
+}
+
+/* Tablas de listado */
+.table {
+    background-color: #ffffff;
+    border-radius: var(--radio);
+    overflow: hidden;
+    box-shadow: var(--sombra);
+}
+
+.table thead th {
+    background-color: #212529;
+    color: #ffffff;
+    border: 0;
+}
+
+/* Mensajes */
+.alert {
+    border-radius: var(--radio);
+}
+
+/* Modales */
+.modal-content {
+    border-radius: var(--radio);
+    border: 0;
+    box-shadow: var(--sombra-hover);
+}
+
+/* Pie de página */
+footer {
+    padding: 1.5rem 0;
+    color: #6c757d;
+    font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 767.98px) {
+    .card:hover {
+        transform: none;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+}

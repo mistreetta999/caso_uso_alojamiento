@@ -1,0 +1,75 @@
+<!--
+    Ruta:
+    C:\Users\carol\OneDrive\Desktop\sistema_alojamientos\sistemas_alojamiento_app\cabanas_app\templates\cabanas_app\eliminar.html
+    -->
+    
+    {% extends "cabanas_app/base.html" %}
+    
+    {% block title %}Eliminar cabaña{% endblock %}
+    
+    {% block content %}
+    <div class="container mt-4">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card border-danger shadow">
+                    <div class="card-header bg-danger text-white">
+                        <h1 class="h4 mb-0">Eliminar cabaña</h1>
+                    </div>
+    
+                    <div class="card-body">
+                        <div class="alert alert-warning">
+                            <strong>Advertencia:</strong>
+                            Esta acción no se puede deshacer.
+                        </div>
+    
+                        <p>
+                            ¿Estás seguro de que deseas eliminar la siguiente cabaña?
+                        </p>
+    
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h2 class="h5">
+                                    {{ cabana.nombre }}
+                                </h2>
+    
+                                {% if cabana.descripcion %}
+                                    <p class="mb-2">
+                                        <strong>Descripción:</strong>
+                                        {{ cabana.descripcion }}
+                                    </p>
+                                {% endif %}
+    
+                                {% if cabana.capacidad %}
+                                    <p class="mb-0">
+                                        <strong>Capacidad:</strong>
+                                        {{ cabana.capacidad }} personas
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+    
+                        <form method="post">
+                            {% csrf_token %}
+    
+                            <div class="d-flex gap-2">
+                                <button
+                                    type="submit"
+                                    class="btn btn-danger"
+                                >
+                                    Confirmar eliminación
+                                </button>
+    
+                                <a
+                                    href="{% url 'cabanas:lista' %}"
+                                    class="btn btn-secondary"
+                                >
+                                    Cancelar
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
